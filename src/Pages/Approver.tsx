@@ -19,40 +19,24 @@ export default function Approver() {
             align={'center'}
             justify={'center'}
             bg={useColorModeValue('gray.50', 'gray.800')}>
-            <TableContainer>
+            <TableContainer display={'block'}>
                 <Table variant='striped' colorScheme='blue'>
-                    <TableCaption>Imperial to metric conversion factors</TableCaption>
                     <Thead>
                         <Tr>
-                            <Th>To convert</Th>
-                            <Th>into</Th>
-                            <Th isNumeric>multiply by</Th>
+                            <Th>First Name</Th>
+                            <Th>Last Name</Th>
+                            <Th>Course</Th>
+                            <Th>Action</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
                         <Tr>
-                            <Td>inches</Td>
-                            <Td>millimetres (mm)</Td>
-                            <Td isNumeric>25.4</Td>
-                        </Tr>
-                        <Tr>
-                            <Td>feet</Td>
-                            <Td>centimetres (cm)</Td>
-                            <Td isNumeric>30.48</Td>
-                        </Tr>
-                        <Tr>
-                            <Td>yards</Td>
-                            <Td>metres (m)</Td>
-                            <Td isNumeric>0.91444</Td>
+                            <Td>1</Td>
+                            <Td>2</Td>
+                            <Td>4</Td>
+                            <Td>5</Td>
                         </Tr>
                     </Tbody>
-                    <Tfoot>
-                        <Tr>
-                            <Th>To convert</Th>
-                            <Th>into</Th>
-                            <Th isNumeric>multiply by</Th>
-                        </Tr>
-                    </Tfoot>
                 </Table>
             </TableContainer>
         </Flex>
