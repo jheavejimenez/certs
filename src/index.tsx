@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import { ChakraProvider} from "@chakra-ui/react";
 import Form from "./components/Form";
+import Approver from "./Pages/Approver";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,7 +12,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ChakraProvider>
-        <Form/>
+        <Approver/>
     </ChakraProvider>
   </React.StrictMode>
 );
