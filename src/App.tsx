@@ -1,13 +1,13 @@
 import React from "react";
+import {BrowserRouter, Route, Router, Routes} from "react-router-dom";
+import Form from "./components/Form";
 
-
-export interface IAppProps {
-    
-}
-export const App: React.FC<{IAppProps: any}> = props => {
+export const App: React.FC<{}> = props => {
     return (
         <BrowserRouter>
-            <Routes></Routes>
+            <Routes>
+                <Route path={"/"} element={<Form />} />
+            </Routes>
         </BrowserRouter>
     );
 };
