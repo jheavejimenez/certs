@@ -12,14 +12,18 @@ import {
     useColorModeValue,
 } from '@chakra-ui/react';
 import {useNavigate} from "react-router-dom";
+import React from "react";
 
 export default function Form() {
     const navigate = useNavigate();
+    const [firstName, setFirstName] = React.useState('');
+    const [lastName, setLastName] = React.useState('');
+    const [course, setCourse] = React.useState('');
 
-    const handleSubmit = (event: { preventDefault: () => void; }) => {
+    const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-
-        navigate('/certs');
+        console.log(firstName, lastName, course);
+        // navigate('/certs');
     };
 
     return (
@@ -46,14 +50,23 @@ export default function Form() {
                                 <FormLabel htmlFor='first-name'>First name</FormLabel>
                                 <Input
                                     id='first-name'
+                                    placeholder='First name'
+                                    value={firstName}
+                                    onChange={(e) => setFirstName(e.target.value)}
                                 />
                                 <FormLabel>Last Name</FormLabel>
                                 <Input
                                     id='last-name'
+                                    placeholder='Last name'
+                                    value={lastName}
+                                    onChange={(e) => setLastName(e.target.value)}
                                 />
                                 <FormLabel>Course</FormLabel>
                                 <Input
                                     id='course'
+                                    placeholder='Course'
+                                    value={course}
+                                    onChange={(e) => setCourse(e.target.value)}
                                 />
                             </FormControl>
                             <Stack spacing={10}>
