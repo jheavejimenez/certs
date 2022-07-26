@@ -1,16 +1,4 @@
-import {
-    TableContainer,
-    TableCaption,
-    Thead,
-    Table,
-    Tr,
-    Tbody,
-    Td,
-    Th,
-    Tfoot, Flex,
-    useColorModeValue, Button,
-} from "@chakra-ui/react";
-import { ReactElement, JSXElementConstructor, ReactFragment, ReactPortal, Key} from "react";
+import {Button, Flex, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useColorModeValue,} from "@chakra-ui/react";
 
 
 export default function Approver() {
