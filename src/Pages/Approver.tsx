@@ -14,7 +14,7 @@ import { ReactElement, JSXElementConstructor, ReactFragment, ReactPortal, Key} f
 
 
 export default function Approver() {
-    const certs = JSON.parse(localStorage.getItem("certs") || "[]");
+    const certs = JSON.parse(localStorage.getItem("payload") || "{}");
     console.log(certs);
 
     return (
