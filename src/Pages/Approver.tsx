@@ -8,11 +8,14 @@ import {
     Td,
     Th,
     Tfoot, Flex,
-    useColorModeValue,
+    useColorModeValue, Button,
 } from "@chakra-ui/react";
+import { ReactElement, JSXElementConstructor, ReactFragment, ReactPortal } from "react";
 
 
 export default function Approver() {
+    const certs = JSON.parse(localStorage.getItem("certs") || "[]");
+
     return (
         <Flex
             minH={'100vh'}
@@ -30,12 +33,26 @@ export default function Approver() {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        <Tr>
-                            <Td>1</Td>
-                            <Td>2</Td>
-                            <Td>4</Td>
-                            <Td>5</Td>
-                        </Tr>
+                        {certs.map((cert: { firstName: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined; lastName: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined; course: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined; isApproved: boolean; }) => {
+                                return (
+                                    <Tr>
+                                        <Td>{cert.firstName}</Td>
+                                        <Td>{cert.lastName}</Td>
+                                        <Td>{cert.course}</Td>
+                                        <Td>
+                                            <Button
+                                                variant='outline'
+                                                onClick={() => {
+                                                    // approve the cert
+                                                    cert.isApproved = true;
+                                                    localStorage.setItem("certs", JSON.stringify(certs));
+                                                }}>
+                                                Approve
+                                            </Button>
+                                        </Td>
+                                    </Tr>
+                                );
+                            })}
                     </Tbody>
                 </Table>
             </TableContainer>
