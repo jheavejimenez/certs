@@ -11,8 +11,17 @@ import {
     Text,
     useColorModeValue,
 } from '@chakra-ui/react';
+import {useNavigate} from "react-router-dom";
 
 export default function Form() {
+    const navigate = useNavigate();
+
+    const handleSubmit = (event: { preventDefault: () => void; }) => {
+        event.preventDefault();
+
+        navigate('/certs');
+    };
+
     return (
         <Flex
             minH={'100vh'}
@@ -31,30 +40,35 @@ export default function Form() {
                     bg={useColorModeValue('white', 'gray.700')}
                     boxShadow={'lg'}
                     p={8}>
-                    <Stack spacing={4}>
-                        <FormControl id="first-name">
-                            <FormLabel>First Name</FormLabel>
-                            <Input type="tex" />
-                        </FormControl>
-                        <FormControl id="last-name">
-                            <FormLabel>Last Name</FormLabel>
-                            <Input type="text" />
-                        </FormControl>
-                        <FormControl id="course">
-                            <FormLabel>Course</FormLabel>
-                            <Input type="text" />
-                        </FormControl>
-                        <Stack spacing={10}>
-                            <Button
-                                bg={'blue.400'}
-                                color={'white'}
-                                _hover={{
-                                    bg: 'blue.500',
-                                }}>
-                               Generate Certificate
-                            </Button>
+                    <form onSubmit={handleSubmit}>
+                        <Stack spacing={4}>
+                            <FormControl>
+                                <FormLabel htmlFor='first-name'>First name</FormLabel>
+                                <Input
+                                    id='first-name'
+                                />
+                                <FormLabel>Last Name</FormLabel>
+                                <Input
+                                    id='last-name'
+                                />
+                                <FormLabel>Course</FormLabel>
+                                <Input
+                                    id='course'
+                                />
+                            </FormControl>
+                            <Stack spacing={10}>
+                                <Button
+                                    type={'submit'}
+                                    bg={'blue.400'}
+                                    color={'white'}
+                                    _hover={{
+                                        bg: 'blue.500',
+                                    }}>
+                                   Generate Certificate
+                                </Button>
+                            </Stack>
                         </Stack>
-                    </Stack>
+                    </form>
                 </Box>
             </Stack>
         </Flex>
