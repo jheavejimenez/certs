@@ -22,8 +22,11 @@ export default function Form() {
 
     const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-        console.log(firstName, lastName, course);
-        // navigate('/certs');
+        localStorage.setItem('firstName', firstName);
+        localStorage.setItem('lastName', lastName);
+        localStorage.setItem('course', course);
+        localStorage.setItem('isApprove', 'false');
+        navigate('/certs');
     };
 
     return (
