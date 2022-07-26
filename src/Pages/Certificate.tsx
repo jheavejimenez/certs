@@ -1,5 +1,9 @@
-function Certificate() {
-    return <h3>Certificate</h3>;
-}
+import React from "react";
 
-export default Certificate;
+export const Certificate: React.FC<{  }> = props => {
+    return (
+        <div>
+            Certs
+        </div>
+    );
+};
