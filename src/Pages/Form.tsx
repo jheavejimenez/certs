@@ -22,10 +22,13 @@ export default function Form() {
 
     const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-        localStorage.setItem('firstName', firstName);
-        localStorage.setItem('lastName', lastName);
-        localStorage.setItem('course', course);
-        localStorage.setItem('isApprove', 'false');
+        const payload = {
+             givenName: firstName,
+             familyName: lastName,
+             course: course,
+            isApproved: false,
+        }
+        localStorage.setItem("cert", JSON.stringify(payload));
         navigate('/certs');
     };
 
