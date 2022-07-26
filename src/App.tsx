@@ -1,8 +1,12 @@
-import React from 'react';
-import Form from "./components/Form";
+import React from "react";
 
-function App() {
-    return ( <Form/> )
+export interface IAppProps {
+    
 }
-
-export default App;
+export const App: React.FC<{IAppProps: any}> = props => {
+    return (
+        <BrowserRouter>
+            <Routes></Routes>
+        </BrowserRouter>
+    );
+};
