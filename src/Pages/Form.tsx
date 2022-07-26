@@ -28,7 +28,7 @@ export default function Form() {
              course: course,
             isApproved: false,
         }
-        localStorage.setItem("payload", JSON.stringify(payload));
+        localStorage.setItem("cert", JSON.stringify(payload));
         navigate('/certs');
     };
 

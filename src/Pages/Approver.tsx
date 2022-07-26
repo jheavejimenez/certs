@@ -14,8 +14,13 @@ import { ReactElement, JSXElementConstructor, ReactFragment, ReactPortal, Key} f
 
 
 export default function Approver() {
-    const certs = JSON.parse(localStorage.getItem("payload") || "{}");
-    console.log(certs);
+    const certs = [JSON.parse(localStorage.getItem("cert") || "{}")];
+    const filteredCerts = certs.filter(cert => !cert.isApproved);
+
+    const handleApprove = (cert: any) => {
+        cert.isApproved = true;
+        localStorage.setItem("cert", JSON.stringify(cert));
+    }
 
     return (
         <Flex
@@ -34,7 +39,24 @@ export default function Approver() {
                         </Tr>
                     </Thead>
                     <Tbody>
-
+                        {filteredCerts.map((cert, index) => (
+                            <Tr key={index}>
+                                <Td>{cert.givenName}</Td>
+                                <Td>{cert.familyName}</Td>
+                                <Td>{cert.course}</Td>
+                                <Td>
+                                    <Button
+                                        onClick={() => handleApprove(cert)}
+                                        bg={'blue.400'}
+                                        color={'white'}
+                                        _hover={{
+                                            bg: 'blue.500',
+                                    }}>
+                                        Approve
+                                    </Button>
+                                </Td>
+                            </Tr>
+                        ))}
                     </Tbody>
                 </Table>
             </TableContainer>
