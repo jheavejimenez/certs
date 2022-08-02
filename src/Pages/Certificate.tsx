@@ -15,7 +15,14 @@ export const Certificate:React.FC<{}> = () => {
             bg={useColorModeValue('gray.50', 'gray.800')}>
             { !isApproved ?
                 <Card /> :
-                <CertificateCardHolder />
+                isApproved.map((cert: string, index: number) => (
+                    <CertificateCardHolder
+                        key={index}
+                        firstName={cert.givenName}
+                        lastName={cert.familyName}
+                        course={cert.course}
+                    />
+                ))
             }
         </Flex>
     );
