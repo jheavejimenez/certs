@@ -1,13 +1,4 @@
 import React from "react";
-//
-// export const Certificate: React.FC<{  }> = props => {
-//    const isApproved = JSON.parse(localStorage.getItem("cert") || "{}").isApproved;
-//     return (
-//         <div>
-//             {isApproved === true ? <div>Certificate</div> : <div>Please wait for approval</div>}
-//         </div>
-//     );
-// };
 
 import {
     Flex,
@@ -18,6 +9,7 @@ import {
     useColorModeValue,
 } from '@chakra-ui/react';
 import {Card} from "../components/Card";
+import {CertificateCardHolder} from "../components/CertificateCardHolder";
 
 export const Certificate:React.FC<{}> = () => {
     const isApproved = JSON.parse(localStorage.getItem("cert") || "{}").isApproved;
@@ -28,7 +20,7 @@ export const Certificate:React.FC<{}> = () => {
             justify={'center'}
             py={12}
             bg={useColorModeValue('gray.50', 'gray.800')}>
-            {!isApproved ? <Card /> : <div>cert</div>}
+            { !isApproved ? <Card /> : <CertificateCardHolder /> }
         </Flex>
     );
 }
