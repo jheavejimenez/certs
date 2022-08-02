@@ -5,7 +5,8 @@ import { Card } from "../components/Card";
 import { CertificateCardHolder } from "../components/CertificateCardHolder";
 
 export const Certificate:React.FC<{}> = () => {
-    const isApproved = [JSON.parse(localStorage.getItem("cert") || "{}").isApproved];
+    const data = [JSON.parse(localStorage.getItem("cert") || "{}")];
+    const isApproved = data.filter(item => item.isApproved)
     return (
         <Flex
             minH={'100vh'}
