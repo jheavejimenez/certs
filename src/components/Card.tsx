@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Heading, Stack, Text, useColorModeValue} from "@chakra-ui/react";
+import {Heading, Stack, useColorModeValue} from "@chakra-ui/react";
 
 export const Card = () => {
     return (

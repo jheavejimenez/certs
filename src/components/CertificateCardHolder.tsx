@@ -17,15 +17,18 @@ export const CertificateCardHolder:  React.FC<Props> = ({firstName, lastName, co
             p={10}
             spacing={8}
             align={'center'}>
-            <Stack align={'center'} spacing={2}>
+            <Stack align={'right'} spacing={2}>
                 <Heading
                     textTransform={'uppercase'}
                     fontSize={'3xl'}
                     color={useColorModeValue('gray.800', 'gray.200')}>
-                    {`Congratulations ${firstName} ${lastName}`}
+                    Congratulations
                 </Heading>
                 <Text fontSize={'lg'} color={'gray.500'}>
-                    {course}
+                    {`Name: ${firstName} ${lastName}`}
+                </Text>
+                <Text fontSize={'lg'} color={'gray.500'}>
+                    {`Course: ${course}`}
                 </Text>
             </Stack>
             <Stack spacing={4} direction={{base: 'column', md: 'row'}} w={'full'}>
