@@ -5,7 +5,7 @@ import { Card } from "../components/Card";
 import { CertificateCardHolder } from "../components/CertificateCardHolder";
 
 export const Certificate:React.FC<{}> = () => {
-    const isApproved = JSON.parse(localStorage.getItem("cert") || "{}").isApproved;
+    const isApproved = [JSON.parse(localStorage.getItem("cert") || "{}").isApproved];
     return (
         <Flex
             minH={'100vh'}
@@ -15,7 +15,7 @@ export const Certificate:React.FC<{}> = () => {
             bg={useColorModeValue('gray.50', 'gray.800')}>
             { !isApproved ?
                 <Card /> :
-                isApproved.map((cert: string, index: number) => (
+                isApproved.map((cert: any, index: number) => (
                     <CertificateCardHolder
                         key={index}
                         firstName={cert.givenName}

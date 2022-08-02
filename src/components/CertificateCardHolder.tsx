@@ -1,8 +1,14 @@
 import React from "react";
 import {Button, Heading, Stack, Text, useColorModeValue} from "@chakra-ui/react";
 
+interface Props {
+    firstName: string;
+    lastName: string;
+    course: string;
 
-export const CertificateCardHolder = () => {
+}
+
+export const CertificateCardHolder:  React.FC<Props> = ({firstName, lastName, course}) => {
     return (
         <Stack
             boxShadow={'2xl'}
@@ -16,10 +22,10 @@ export const CertificateCardHolder = () => {
                     textTransform={'uppercase'}
                     fontSize={'3xl'}
                     color={useColorModeValue('gray.800', 'gray.200')}>
-
+                    {`Congratulations ${firstName} ${lastName}`}
                 </Heading>
                 <Text fontSize={'lg'} color={'gray.500'}>
-                    Subscribe to our newsletter & stay up to date!
+                    {course}
                 </Text>
             </Stack>
             <Stack spacing={4} direction={{base: 'column', md: 'row'}} w={'full'}>
