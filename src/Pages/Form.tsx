@@ -32,7 +32,7 @@ export default function Form() {
             isApproved: false,
         }).then(res => {
             console.log(res);
-            navigate('/certificate');
+            navigate('/certs');
         }).catch(err => {
             console.log(err);
         })

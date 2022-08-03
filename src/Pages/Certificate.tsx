@@ -1,24 +1,34 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 import {Container, SimpleGrid} from '@chakra-ui/react';
 import {Card} from "../Components/Card";
 import {CertificateCardHolder} from "../Components/CertificateCardHolder";
+import axios from "axios";
+import {useLocation} from "react-router-dom";
 
-export const Certificate:React.FC<{}> = () => {
-    const isApproved = JSON.parse(localStorage.getItem("cert") || "{}").isApproved;
-    const data = [JSON.parse(localStorage.getItem("cert") || "{}")];
-    const filteredData = data.filter(item => item.isApproved)
-
-
-
+export default function Certificate() {
+    const [certs, setCerts] =  useState([]);
+    const getCerts = () => {
+        axios.get('http://localhost:3000/certs').then(res => {
+            setCerts(res.data);
+            console.log(res.data);
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+    useEffect(() => {
+         getCerts();
+    }, []);
+    // @ts-ignore
+    const filteredCerts = certs.filter(cert => cert.isApproved === false);
     return (
         <Container maxW={'1280px'} marginTop={'10vh'}>
-            { !isApproved ?
+            { !filteredCerts ?
                 <Card /> :
                 <SimpleGrid columns={3} spacing={5}>
-                    {filteredData.map((cert: any, index: number) => (
+                    {filteredCerts.map((cert: any) => (
                         <CertificateCardHolder
-                            key={index}
+                            key={cert.id}
                             firstName={cert.givenName}
                             lastName={cert.familyName}
                             course={cert.course}
