@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Heading, Stack, Text, useColorModeValue} from "@chakra-ui/react";
-import ICertProps from "../models/CertsData";
+import ICertProps from "../models/CertProps";
 
 export const CertificateCardHolder:  React.FC<ICertProps> = ({firstName, lastName, course}) => {
     return (

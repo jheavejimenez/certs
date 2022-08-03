@@ -4,9 +4,11 @@ import {Container, SimpleGrid} from '@chakra-ui/react';
 import {Card} from "../components/Card";
 import {CertificateCardHolder} from "../components/CertificateCardHolder";
 import axios from "axios";
+import ICerts from "../models/CertsData";
 
 export default function Certificate() {
-    const [certs, setCerts] =  useState([]);
+    // @ts-ignore
+    const [certs, setCerts] =  useState<ICerts>([]);
     const getCerts = () => {
         axios.get('http://localhost:3000/certs').then(res => {
             setCerts(res.data);
@@ -23,7 +25,7 @@ export default function Certificate() {
         <Container maxW={'1280px'} marginTop={'10vh'}>
             {
                 filteredCerts.length === 0 ? ( <Card/> ) : (
-                    filteredCerts.map((cert: any) => (
+                    filteredCerts.map((cert: any, index: number) => (
                         <SimpleGrid columns={3} spacing={5}>
                         <CertificateCardHolder
                             key={cert.id}
