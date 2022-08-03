@@ -1,14 +1,32 @@
 import {Button, Flex, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useColorModeValue,} from "@chakra-ui/react";
 import axios from "axios";
 import {issuerBaseUrl} from "../utils/apiConfigs";
+import {useEffect, useState} from "react";
+import {Interface} from "readline";
 
+interface ICerts {
+    id: string;
+    givenName: string;
+    familyName: string;
+    course: string;
+    isApprove: boolean;
+}
 
 export default function Approver() {
-    const certs = [JSON.parse(localStorage.getItem("cert") || "{}")];
-    const filteredCerts = certs.filter(cert => !cert.isApproved);
-
-    console.log(process.env.REACT_APP_DID);
-
+    // @ts-ignore
+    const [certs, setCerts] =  useState<ICerts>([]);
+    const getCerts = () => {
+        axios.get('http://localhost:3000/certs').then(res => {
+            setCerts(res.data);
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+    useEffect(() => {
+        getCerts();
+    }, []);
+    // @ts-ignore
+    const filteredCerts = certs.filter(cert => !(cert.isApproved !== false));
     const handleApprove = async (cert: any) => {
         const body = {
             "jsonLdContextUrl": "https://schema.affinidi.com/@did:elem:EiC4iIPkKE9Emed3MbAqZ8z8QixcKFPtSoUUSpSP1XA4aA/xampleSchema2V1-0.jsonld",
@@ -59,8 +77,8 @@ export default function Approver() {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {filteredCerts.map((cert, index) => (
-                            <Tr key={index}>
+                        {filteredCerts.map((cert: ICerts) => (
+                            <Tr key={cert.id}>
                                 <Td>{cert.givenName}</Td>
                                 <Td>{cert.familyName}</Td>
                                 <Td>{cert.course}</Td>
