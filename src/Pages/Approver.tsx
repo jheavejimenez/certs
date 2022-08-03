@@ -1,6 +1,6 @@
 import {Button, Flex, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useColorModeValue,} from "@chakra-ui/react";
 import axios from "axios";
-import {issuerApi, issuerBaseUrl} from "../utils/apiConfigs";
+import {issuerBaseUrl} from "../utils/apiConfigs";
 
 
 export default function Approver() {

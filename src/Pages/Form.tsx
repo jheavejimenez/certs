@@ -11,7 +11,7 @@ import {
     Text,
     useColorModeValue,
 } from '@chakra-ui/react';
-import { nanoid } from 'nanoid/async'
+import {nanoid} from 'nanoid/async'
 import {useNavigate} from "react-router-dom";
 import React from "react";
 import axios from "axios";
