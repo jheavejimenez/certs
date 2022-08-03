@@ -2,16 +2,7 @@ import {Button, Flex, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useColorM
 import axios from "axios";
 import {issuerBaseUrl} from "../utils/apiConfigs";
 import {useEffect, useState} from "react";
-import {Interface} from "readline";
-
-interface ICerts {
-    id: string;
-    givenName: string;
-    familyName: string;
-    course: string;
-    isApprove: boolean;
-}
-
+import ICerts from "../models/CertsData"
 export default function Approver() {
     // @ts-ignore
     const [certs, setCerts] =  useState<ICerts>([]);
