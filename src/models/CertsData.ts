@@ -6,3 +6,10 @@ export default interface ICerts {
     isApprove: boolean;
 }
 
+
+export default interface ICertProps {
+    firstName: string;
+    lastName: string;
+    course: string;
+
+}

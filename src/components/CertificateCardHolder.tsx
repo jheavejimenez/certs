@@ -1,14 +1,8 @@
 import React from "react";
 import {Button, Heading, Stack, Text, useColorModeValue} from "@chakra-ui/react";
+import ICertProps from "../models/CertsData";
 
-interface Props {
-    firstName: string;
-    lastName: string;
-    course: string;
-
-}
-
-export const CertificateCardHolder:  React.FC<Props> = ({firstName, lastName, course}) => {
+export const CertificateCardHolder:  React.FC<ICertProps> = ({firstName, lastName, course}) => {
     return (
         <Stack
             boxShadow={'2xl'}
