@@ -4,7 +4,6 @@ import {Button, Heading, Stack, useColorModeValue} from "@chakra-ui/react";
 export const Card = () => {
     return (
         <Stack
-
             bg={useColorModeValue('gray.100', 'gray.700')}
             rounded={'xl'}
             p={10}
@@ -30,8 +29,6 @@ export const Card = () => {
                     </Button>
                 </Stack>
             </Stack>
-
-
         </Stack>
     )
 
