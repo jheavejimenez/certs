@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 
 import {Container, SimpleGrid} from '@chakra-ui/react';
-import {Card} from "../Components/Card";
-import {CertificateCardHolder} from "../Components/CertificateCardHolder";
+import {Card} from "../components/Card";
+import {CertificateCardHolder} from "../components/CertificateCardHolder";
 import axios from "axios";
 
 export default function Certificate() {
