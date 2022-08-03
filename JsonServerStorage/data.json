@@ -1,23 +1,4 @@
 {
-  "certs":
-  [
-    {
-      "givenName":"jheave",
-      "familyName":"Jimenenez",
-      "course":"CEIT",
-      "isApproved": false
-    },
-    {
-      "givenName":"James",
-      "familyName":"doe",
-      "course":"CEIT",
-      "isApproved": false
-    },
-    {
-      "givenName":"Jhon",
-      "familyName":"doe",
-      "course":"CEIT",
-      "isApproved": false
-    }
+  "certs": [
   ]
 }

@@ -11,8 +11,10 @@ import {
     Text,
     useColorModeValue,
 } from '@chakra-ui/react';
+import { nanoid } from 'nanoid/async'
 import {useNavigate} from "react-router-dom";
 import React from "react";
+import axios from "axios";
 
 export default function Form() {
     const navigate = useNavigate();
@@ -20,16 +22,20 @@ export default function Form() {
     const [lastName, setLastName] = React.useState('');
     const [course, setCourse] = React.useState('');
 
-    const handleSubmit = async (event: { preventDefault: () => void; }) => {
-        event.preventDefault();
-        const payload = {
-             givenName: firstName,
-             familyName: lastName,
-             course: course,
+    const handleSubmit = async (e: React.SyntheticEvent) => {
+        e.preventDefault()
+        await axios.post('http://localhost:3000/certs', {
+            id: await nanoid(5),
+            givenName: firstName,
+            familyName: lastName,
+            course: course,
             isApproved: false,
-        }
-        localStorage.setItem("cert", JSON.stringify(payload));
-        navigate('/certs');
+        }).then(res => {
+            console.log(res);
+            navigate('/certificate');
+        }).catch(err => {
+            console.log(err);
+        })
     };
 
     return (
