@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Heading, Stack, Text, useColorModeValue} from "@chakra-ui/react";
+import {Heading, Stack, Text, useColorModeValue} from "@chakra-ui/react";
 import ICertProps from "../models/CertProps";
 
 export const CertificateCardHolder:  React.FC<ICertProps> = ({firstName, lastName, course}) => {
@@ -24,17 +24,6 @@ export const CertificateCardHolder:  React.FC<ICertProps> = ({firstName, lastNam
                 <Text fontSize={'lg'} color={'gray.500'}>
                     {`Course: ${course}`}
                 </Text>
-            </Stack>
-            <Stack spacing={4} direction={{base: 'column', md: 'row'}} w={'full'}>
-                <Button
-                    bg={'blue.400'}
-                    rounded={'full'}
-                    color={'white'}
-                    flex={'1 0 auto'}
-                    _hover={{bg: 'blue.500'}}
-                    _focus={{bg: 'blue.500'}}>
-                    Submit Another Application
-                </Button>
             </Stack>
         </Stack>
     )
