@@ -1,8 +1,8 @@
 import React from "react";
 
 import {Container, SimpleGrid} from '@chakra-ui/react';
-import {Card} from "../components/Card";
-import {CertificateCardHolder} from "../components/CertificateCardHolder";
+import {Card} from "../Components/Card";
+import {CertificateCardHolder} from "../Components/CertificateCardHolder";
 
 export const Certificate:React.FC<{}> = () => {
     const isApproved = JSON.parse(localStorage.getItem("cert") || "{}").isApproved;
