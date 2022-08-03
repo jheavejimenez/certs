@@ -10,7 +10,6 @@ export default function Certificate() {
     const getCerts = () => {
         axios.get('http://localhost:3000/certs').then(res => {
             setCerts(res.data);
-            console.log(res.data);
         }).catch(err => {
             console.log(err);
         });
@@ -19,22 +18,24 @@ export default function Certificate() {
          getCerts();
     }, []);
     // @ts-ignore
-    const filteredCerts = certs.filter(cert => !(cert.isApproved !== false));
+    const filteredCerts = certs.filter(cert => cert.isApproved === true);
     return (
         <Container maxW={'1280px'} marginTop={'10vh'}>
-            { !filteredCerts ?
-                <Card /> :
-                <SimpleGrid columns={3} spacing={5}>
-                    {filteredCerts.map((cert: any) => (
+            {
+                filteredCerts.length === 0 ? ( <Card/> ) : (
+                    filteredCerts.map((cert: any) => (
+                        <SimpleGrid columns={3} spacing={5}>
                         <CertificateCardHolder
                             key={cert.id}
                             firstName={cert.givenName}
                             lastName={cert.familyName}
                             course={cert.course}
-                        />
-                    ))}
-                </SimpleGrid>
+                        /> </SimpleGrid>
+                    ))
+
+                )
             }
+
         </Container>
     );
 }
