@@ -1,6 +1,7 @@
 import React from "react";
 import {Heading, Stack, Text, useColorModeValue} from "@chakra-ui/react";
 import ICertProps from "../models/CertProps";
+import {CustomButton} from "./Button";
 
 export const CertificateCardHolder:  React.FC<ICertProps> = ({firstName, lastName, course}) => {
     return (
@@ -25,6 +26,7 @@ export const CertificateCardHolder:  React.FC<ICertProps> = ({firstName, lastNam
                     {`Course: ${course}`}
                 </Text>
             </Stack>
+            <CustomButton title={'Submit Another Application'} path={'/'} />
         </Stack>
     )
 }

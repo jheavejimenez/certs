@@ -19,14 +19,14 @@
       "givenName": "Urielle",
       "familyName": "Stuart",
       "course": "Excepteur nesciunt ",
-      "isApproved": true
+      "isApproved": false
     },
     {
       "id": "VwDjj",
       "givenName": "Talon",
       "familyName": "Dillard",
       "course": "Magna non amet quis",
-      "isApproved": true
+      "isApproved": false
     }
   ]
 }

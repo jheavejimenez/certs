@@ -1,5 +1,6 @@
 import React from "react";
 import {Button, Heading, Stack, useColorModeValue} from "@chakra-ui/react";
+import {CustomButton} from "./Button";
 
 export const Card = () => {
     return (
@@ -17,17 +18,7 @@ export const Card = () => {
                     color={useColorModeValue('gray.800', 'gray.200')}>
                     Please wait for the certificate to approve
                 </Heading>
-                <Stack spacing={4} direction={{base: 'column', md: 'row'}} w={'full'}>
-                    <Button
-                        bg={'blue.400'}
-                        rounded={'full'}
-                        color={'white'}
-                        flex={'1 0 auto'}
-                        _hover={{bg: 'blue.500'}}
-                        _focus={{bg: 'blue.500'}}>
-                        Submit Another Application
-                    </Button>
-                </Stack>
+                <CustomButton title={'Go Back To HomePage'} path={'/'}/>
             </Stack>
         </Stack>
     )
