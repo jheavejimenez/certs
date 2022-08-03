@@ -9,7 +9,7 @@ export const App: React.FC<{}> = props => {
         <BrowserRouter>
             <Routes>
                 <Route path={"/"} element={<Form/>}/>
-                <Route path={"certs"} element={<Certificate/>}/>
+                <Route path={"certificate"} element={<Certificate/>}/>
                 <Route path={"approver"} element={<Approver/>}/>
             </Routes>
         </BrowserRouter>
