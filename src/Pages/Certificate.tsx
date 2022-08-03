@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Flex, useColorModeValue } from '@chakra-ui/react';
+import {Container, Flex, Grid, SimpleGrid, useColorModeValue} from '@chakra-ui/react';
 import { Card } from "../components/Card";
 import { CertificateCardHolder } from "../components/CertificateCardHolder";
 
@@ -8,24 +8,43 @@ export const Certificate:React.FC<{}> = () => {
     const isApproved = JSON.parse(localStorage.getItem("cert") || "{}").isApproved;
     const data = [JSON.parse(localStorage.getItem("cert") || "{}")];
     const filteredData = data.filter(item => item.isApproved)
+
+    const dummyData = [
+        {
+            "givenName":"jheave",
+            "familyName":"Jimenenez",
+            "course":"CEIT",
+            "isApproved": false
+        },
+        {
+            "givenName":"James",
+            "familyName":"doe",
+            "course":"CEIT",
+            "isApproved": false
+        },
+        {
+            "givenName":"Jhon",
+            "familyName":"doe",
+            "course":"CEIT",
+            "isApproved": false
+        }
+    ]
+
     return (
-        <Flex
-            minH={'100vh'}
-            align={'center'}
-            justify={'center'}
-            py={12}
-            bg={useColorModeValue('gray.50', 'gray.800')}>
+        <Container maxW={'1280px'} marginTop={'10vh'}>
             { !isApproved ?
                 <Card /> :
-                filteredData.map((cert: any, index: number) => (
-                    <CertificateCardHolder
-                        key={index}
-                        firstName={cert.givenName}
-                        lastName={cert.familyName}
-                        course={cert.course}
-                    />
-                ))
+                <SimpleGrid columns={3} spacing={5}>
+                    {dummyData.map((cert: any, index: number) => (
+                        <CertificateCardHolder
+                            key={index}
+                            firstName={cert.givenName}
+                            lastName={cert.familyName}
+                            course={cert.course}
+                        />
+                    ))}
+                </SimpleGrid>
             }
-        </Flex>
+        </Container>
     );
 }
