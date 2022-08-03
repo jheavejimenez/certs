@@ -4,7 +4,6 @@ import {Container, SimpleGrid} from '@chakra-ui/react';
 import {Card} from "../Components/Card";
 import {CertificateCardHolder} from "../Components/CertificateCardHolder";
 import axios from "axios";
-import {useLocation} from "react-router-dom";
 
 export default function Certificate() {
     const [certs, setCerts] =  useState([]);
@@ -20,7 +19,7 @@ export default function Certificate() {
          getCerts();
     }, []);
     // @ts-ignore
-    const filteredCerts = certs.filter(cert => cert.isApproved === false);
+    const filteredCerts = certs.filter(cert => !(cert.isApproved !== false));
     return (
         <Container maxW={'1280px'} marginTop={'10vh'}>
             { !filteredCerts ?
