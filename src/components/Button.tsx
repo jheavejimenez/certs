@@ -1,8 +1,9 @@
 import React from "react";
 import {Stack, Button} from "@chakra-ui/react";
 import {useNavigate} from "react-router-dom";
+import IButton from "../models/ButtonProps";
 
-export default function CustomButton (){
+export const CustomButton: React.FC<IButton> = ({title, path}) => {
     const navigate = useNavigate();
     return(
         <Stack spacing={4} direction={{base: 'column', md: 'row'}} w={'full'}>
@@ -15,7 +16,7 @@ export default function CustomButton (){
                 _focus={{bg: 'blue.500'}}
                 onClick={() => navigate(path)}
             >
-                Submit Another Application
+                {title}
             </Button>
         </Stack>
     )
