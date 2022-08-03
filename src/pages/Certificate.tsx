@@ -25,19 +25,18 @@ export default function Certificate() {
         <Container maxW={'1280px'} marginTop={'10vh'}>
             {
                 filteredCerts.length === 0 ? ( <Card/> ) : (
-                    filteredCerts.map((cert: any, index: number) => (
-                        <SimpleGrid columns={3} spacing={5}>
-                        <CertificateCardHolder
-                            key={cert.id}
-                            firstName={cert.givenName}
-                            lastName={cert.familyName}
-                            course={cert.course}
-                        /> </SimpleGrid>
-                    ))
-
+                    <SimpleGrid columns={3} spacing={5}>
+                        {filteredCerts.map((cert: any, index: number) => (
+                            <CertificateCardHolder
+                                key={cert.id}
+                                firstName={cert.givenName}
+                                lastName={cert.familyName}
+                                course={cert.course}
+                            />
+                        ))}
+                    </SimpleGrid>
                 )
             }
-
         </Container>
     );
 }
