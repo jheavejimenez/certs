@@ -16,7 +16,7 @@ export default function Certificate() {
             }).catch(err => {
                 console.log(err);
             });
-        }, 2000);
+        }, 5000);
         return () => {
             clearInterval(interval); // need to clear the interval when the component unmounts to prevent memory leaks
         };

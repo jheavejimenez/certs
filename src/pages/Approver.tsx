@@ -13,7 +13,7 @@ export default function Approver() {
             }).catch(err => {
                 console.log(err);
             });
-        }, 2000);
+        }, 4000);
         return () => {
             clearInterval(interval); // need to clear the interval when the component unmounts to prevent memory leaks
         };
