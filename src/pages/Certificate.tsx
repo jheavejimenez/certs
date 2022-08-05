@@ -9,16 +9,18 @@ import ICerts from "../models/CertsData";
 export default function Certificate() {
     // @ts-ignore
     const [certs, setCerts] =  useState<ICerts>([]);
-    const getCerts = () => {
-        axios.get('http://localhost:3000/certs').then(res => {
-            setCerts(res.data);
-        }).catch(err => {
-            console.log(err);
-        });
-    }
     useEffect(() => {
-         getCerts();
-    }, []);
+        let interval = setInterval(async () => {
+            await axios.get('http://localhost:3000/certs').then(res => {
+                setCerts(res.data);
+            }).catch(err => {
+                console.log(err);
+            });
+        }, 5000);
+        return () => {
+            clearInterval(interval); // need to clear the interval when the component unmounts to prevent memory leaks
+        };
+    }, [certs]);
     // @ts-ignore
     const filteredCerts = certs.filter(cert => cert.isApproved === true);
     return (
@@ -26,7 +28,7 @@ export default function Certificate() {
             {
                 filteredCerts.length === 0 ? ( <Card/> ) : (
                     <SimpleGrid columns={3} spacing={5}>
-                        {filteredCerts.map((cert: any, index: number) => (
+                        {filteredCerts.map((cert: any) => (
                             <CertificateCardHolder
                                 key={cert.id}
                                 firstName={cert.givenName}
