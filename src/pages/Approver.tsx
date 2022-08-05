@@ -1,22 +1,23 @@
 import {Button, Flex, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useColorModeValue,} from "@chakra-ui/react";
 import axios from "axios";
-import {issuerBaseUrl} from "../utils/apiConfigs";
 import {useEffect, useState} from "react";
 import ICerts from "../models/CertsData"
-import {nanoid} from "nanoid/async";
+
 export default function Approver() {
     // @ts-ignore
     const [certs, setCerts] =  useState<ICerts>([]);
-    const getCerts = () => {
-        axios.get('http://localhost:3000/certs').then(res => {
-            setCerts(res.data);
-        }).catch(err => {
-            console.log(err);
-        });
-    }
     useEffect(() => {
-        getCerts();
-    }, []);
+        let interval = setInterval(async () => {
+            await axios.get('http://localhost:3000/certs').then(res => {
+                setCerts(res.data);
+            }).catch(err => {
+                console.log(err);
+            });
+        }, 2000);
+        return () => {
+            clearInterval(interval); // need to clear the interval when the component unmounts to prevent memory leaks
+        };
+    }, [certs]);
 
     // @ts-ignore
     const filteredCerts = certs.filter(cert => !(cert.isApproved !== false));
