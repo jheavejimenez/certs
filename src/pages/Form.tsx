@@ -89,7 +89,7 @@ export default function Form() {
                                     _hover={{
                                         bg: 'blue.500',
                                     }}>
-                                   Generate Certificate
+                                   Request Certificate
                                 </Button>
                             </Stack>
                         </Stack>

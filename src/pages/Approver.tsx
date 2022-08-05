@@ -3,6 +3,7 @@ import axios from "axios";
 import {issuerBaseUrl} from "../utils/apiConfigs";
 import {useEffect, useState} from "react";
 import ICerts from "../models/CertsData"
+import {nanoid} from "nanoid/async";
 export default function Approver() {
     // @ts-ignore
     const [certs, setCerts] =  useState<ICerts>([]);
@@ -16,39 +17,48 @@ export default function Approver() {
     useEffect(() => {
         getCerts();
     }, []);
+
     // @ts-ignore
     const filteredCerts = certs.filter(cert => !(cert.isApproved !== false));
     const handleApprove = async (cert: any) => {
-        const body = {
-            "jsonLdContextUrl": "https://schema.affinidi.com/@did:elem:EiC4iIPkKE9Emed3MbAqZ8z8QixcKFPtSoUUSpSP1XA4aA/xampleSchema2V1-0.jsonld",
-            "jsonSchemaUrl": "https://schema.affinidi.com/@did:elem:EiC4iIPkKE9Emed3MbAqZ8z8QixcKFPtSoUUSpSP1XA4aA/xampleSchema2V1-0.json",
-            "typeName": "xampleSchema2",
-            "credentialSubject": {
-                "data": {
-                    "firstname": cert.givenName,
-                    "lastname": cert.familyName,
-                    "course": cert.course,
-                },
-                "holderDid": process.env.REACT_APP_DID // the did value is from postman collection in  env variables
-            }
-        }
-        // axios header configs
-        const config = {
-            headers: {
-                'Api-Key': process.env.REACT_APP_API_KEY_HASH,
-                'Content-Type': 'application/json',
-            }
-        }
-        // @ts-ignore
-        const {data} = await axios.post(issuerBaseUrl, body, config);
-        console.log(data);
-
-        cert.isApproved = true;
-        localStorage.setItem("cert", JSON.stringify(cert));
+        // const body = {
+        //     "jsonLdContextUrl": "https://schema.affinidi.com/@did:elem:EiC4iIPkKE9Emed3MbAqZ8z8QixcKFPtSoUUSpSP1XA4aA/xampleSchema2V1-0.jsonld",
+        //     "jsonSchemaUrl": "https://schema.affinidi.com/@did:elem:EiC4iIPkKE9Emed3MbAqZ8z8QixcKFPtSoUUSpSP1XA4aA/xampleSchema2V1-0.json",
+        //     "typeName": "xampleSchema2",
+        //     "credentialSubject": {
+        //         "data": {
+        //             "firstname": cert.givenName,
+        //             "lastname": cert.familyName,
+        //             "course": cert.course,
+        //         },
+        //         "holderDid": process.env.REACT_APP_DID // the did value is from postman collection in  env variables
+        //     }
+        // }
+        // // axios header configs
+        // const config = {
+        //     headers: {
+        //         'Api-Key': process.env.REACT_APP_API_KEY_HASH,
+        //         'Content-Type': 'application/json',
+        //     }
+        // }
+        // // @ts-ignore
+        // const {data} = await axios.post(issuerBaseUrl, body, config);
+        // console.log(data);
 
         //TODO: after i call the build unsign Affinidi API
         // I nmeed to call the Issuer API(Sign VC)
 
+        // for the meantime I will update the key value pair isApproved == true in Json server
+        await axios.put(`http://localhost:3000/certs/${cert.id}`, {
+            givenName: cert.givenName,
+            familyName: cert.familyName,
+            course: cert.course,
+            isApproved: true
+        }).then(res => {
+            console.log(res);
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
     return (
@@ -56,7 +66,8 @@ export default function Approver() {
             minH={'100vh'}
             align={'center'}
             justify={'center'}
-            bg={useColorModeValue('gray.50', 'gray.800')}>
+            bg={useColorModeValue('gray.50', 'gray.800')}
+        >
             <TableContainer display={'block'}>
                 <Table variant='striped' colorScheme='blue'>
                     <Thead>
@@ -85,7 +96,7 @@ export default function Approver() {
                                     </Button>
                                 </Td>
                             </Tr>
-                        ))}
+                            ))}
                     </Tbody>
                 </Table>
             </TableContainer>

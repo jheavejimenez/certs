@@ -26,7 +26,7 @@ export default function Certificate() {
             {
                 filteredCerts.length === 0 ? ( <Card/> ) : (
                     <SimpleGrid columns={3} spacing={5}>
-                        {filteredCerts.map((cert: any, index: number) => (
+                        {filteredCerts.map((cert: any) => (
                             <CertificateCardHolder
                                 key={cert.id}
                                 firstName={cert.givenName}
