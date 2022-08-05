@@ -9,16 +9,18 @@ import ICerts from "../models/CertsData";
 export default function Certificate() {
     // @ts-ignore
     const [certs, setCerts] =  useState<ICerts>([]);
-    const getCerts = () => {
-        axios.get('http://localhost:3000/certs').then(res => {
-            setCerts(res.data);
-        }).catch(err => {
-            console.log(err);
-        });
-    }
     useEffect(() => {
-         getCerts();
-    }, []);
+        let interval = setInterval(async () => {
+            await axios.get('http://localhost:3000/certs').then(res => {
+                setCerts(res.data);
+            }).catch(err => {
+                console.log(err);
+            });
+        }, 2000);
+        return () => {
+            clearInterval(interval); // need to clear the interval when the component unmounts to prevent memory leaks
+        };
+    }, [certs]);
     // @ts-ignore
     const filteredCerts = certs.filter(cert => cert.isApproved === true);
     return (
