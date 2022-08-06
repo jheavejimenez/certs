@@ -47,9 +47,9 @@ export default function Approver() {
         // console.log(data);
 
         // TODO: check if the user is already have a cloud wallet
-
-        //TODO: after i call the build unsign Affinidi API
-        // I need to call the Issuer API(Sign VC)
+        // TODO: if not, create one
+        // TODO: after i call the build unsign Affinidi API
+        // TODO: I need to call the Issuer API(Sign VC)
 
         // for the meantime I will update the key value pair isApproved == true in Json server
         await axios.put(`http://localhost:3000/certs/${cert.id}`, {
