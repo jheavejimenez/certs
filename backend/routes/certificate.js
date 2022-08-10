@@ -9,7 +9,6 @@ router.route('/').get(async (req, res) => {
             firstName: {$regex: `${searchQuery}`, $options: 'i'},
         } : {};
         const data = await Certificate.find(filter);
-        console.log(data)
         res.json(data)
 
     } catch (err) {
