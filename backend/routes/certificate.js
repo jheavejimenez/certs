@@ -6,9 +6,10 @@ router.route('/').get(async (req, res) => {
     try {
         const searchQuery = req.query.q
         const filter = searchQuery ? {
-            certificate: {$regex: `${searchQuery}`, $options: 'i'},
+            firstName: {$regex: `${searchQuery}`, $options: 'i'},
         } : {};
         const data = await Certificate.find(filter);
+        console.log(data)
         res.json(data)
 
     } catch (err) {
@@ -16,9 +17,7 @@ router.route('/').get(async (req, res) => {
     }
 
 }).post((req, res) => {
-    const certificate = req.body;
-
-    const newCertificate = new Certificate({certificate});
+    const newCertificate = new Certificate(req.body);
 
     newCertificate.save()
         .then(() => res.json(newCertificate))

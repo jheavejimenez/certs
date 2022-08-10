@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors')
 
 const dotenv = require('dotenv')
 dotenv.config();
@@ -7,6 +8,7 @@ dotenv.config();
 const app = express()
 const port = process.env.PORT || 4000;
 
+app.use(cors());
 app.use(express.json()); // for parsing application/json
 const uri = process.env.ATLAS_URI;
 
