@@ -25,3 +25,4 @@ yarn-error.log*
 # Jetbrain
 .idea/
 /.env
+/backend/.env
