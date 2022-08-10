@@ -10,3 +10,6 @@ export const issuerApi: AxiosInstance = axios.create({
     },
 });
 
+export const server = {
+    url: "http://localhost:4000"
+}
