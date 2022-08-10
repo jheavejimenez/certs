@@ -10,9 +10,9 @@ export async function createCertificate(
     firstName: string,
     lastName: string,
     course: string,
-    isApprove: boolean
+    // isApprove: boolean
 ) {
-    const data = {firstName, lastName, course, isApprove};
+    const data = {firstName, lastName, course, isApprove: false};
     console.log(data);
 
     return await axios.post(`${server.url}/api/certificates`, data);

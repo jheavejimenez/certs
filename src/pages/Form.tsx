@@ -25,12 +25,10 @@ export default function Form() {
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault()
-        const isApprove = false
         const a = createCertificate(
             firstName,
             lastName,
             course,
-            isApprove
         )
         console.log(a)
         navigate('/certificate')
