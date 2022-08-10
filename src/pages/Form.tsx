@@ -11,10 +11,8 @@ import {
     Text,
     useColorModeValue,
 } from '@chakra-ui/react';
-import {nanoid} from 'nanoid/async'
 import {useNavigate} from "react-router-dom";
 import React from "react";
-import axios from "axios";
 import {createCertificate} from "../utils/certifcate";
 
 export default function Form() {
@@ -25,12 +23,11 @@ export default function Form() {
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault()
-        const a = createCertificate(
+        await createCertificate(
             firstName,
             lastName,
             course,
         )
-        console.log(a)
         navigate('/certificate')
     };
 
@@ -85,7 +82,7 @@ export default function Form() {
                                     _hover={{
                                         bg: 'blue.500',
                                     }}>
-                                   Request Certificate
+                                    Request Certificate
                                 </Button>
                             </Stack>
                         </Stack>
