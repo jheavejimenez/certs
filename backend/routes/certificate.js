@@ -15,9 +15,8 @@ router.route('/').get(async (req, res) => {
         res.status(500).json(`error ${err}`)
     }
 
-}).post(async (req, res) => {
+}).post((req, res) => {
     const certificate = req.body;
-    console.log(certificate)
 
     const newCertificate = new Certificate({certificate});
 
