@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const certificateSchema = new Schema({
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
-    course: {type: String, required: true}
+    course: {type: String, required: true},
+    isApprove: {type: Boolean}
 }, {
     timestamps: true,
 })
