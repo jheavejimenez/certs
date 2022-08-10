@@ -6,7 +6,7 @@ router.route('/').get(async (req, res) => {
     try {
         const searchQuery = req.query.q
         const filter = searchQuery ? {
-            firstName: {$regex: `${searchQuery}`, $options: 'i'},
+            isApprove: {$regex: `${searchQuery}`, $options: 'i'},
         } : {};
         const data = await Certificate.find(filter);
         res.json(data)
