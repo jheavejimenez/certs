@@ -5,24 +5,25 @@ import {Card} from "../components/Card";
 import {CertificateCardHolder} from "../components/CertificateCardHolder";
 import axios from "axios";
 import ICerts from "../models/CertsData";
+import {server} from "../utils/apiConfigs";
 
 export default function Certificate() {
     // @ts-ignore
     const [certs, setCerts] =  useState<ICerts>([]);
     useEffect(() => {
         let interval = setInterval(async () => {
-            await axios.get('http://localhost:3000/certs').then(res => {
+            await axios.get(`${server.url}/api/certificates`).then(res => {
                 setCerts(res.data);
             }).catch(err => {
                 console.log(err);
             });
-        }, 5000);
+        }, 10000);
         return () => {
             clearInterval(interval); // need to clear the interval when the component unmounts to prevent memory leaks
         };
     }, [certs]);
     // @ts-ignore
-    const filteredCerts = certs.filter(cert => cert.isApproved === true);
+    const filteredCerts = certs.filter(cert => cert.isApprove === true);
     return (
         <Container maxW={'1280px'} marginTop={'10vh'}>
             {
