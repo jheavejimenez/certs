@@ -23,4 +23,18 @@ router.route('/').get(async (req, res) => {
         .catch(err => res.status(500).json(`error ${err}`));
 });
 
+router.route('/:id').put(async (req, res) => {
+    try {
+        console.log(req.body);
+        const {firstName, lastName, course, isApprove} = req.body;
+        console.log(firstName);
+        const update = {firstName, lastName, course, isApprove};
+        const product = await Certificate.findByIdAndUpdate(req.params.id, update, {new: true});
+        res.json(product)
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(`error ${err}`)
+    }
+})
+
 module.exports = router;
