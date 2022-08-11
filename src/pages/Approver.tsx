@@ -2,13 +2,14 @@ import {Button, Flex, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useColorM
 import axios from "axios";
 import {useEffect, useState} from "react";
 import ICerts from "../models/CertsData"
+import {server} from "../utils/apiConfigs";
 
 export default function Approver() {
     // @ts-ignore
     const [certs, setCerts] =  useState<ICerts>([]);
     useEffect(() => {
         let interval = setInterval(async () => {
-            await axios.get(`{server.url}/api/certificates`).then(res => {
+            await axios.get(`${server.url}/api/certificates`).then(res => {
                 setCerts(res.data);
             }).catch(err => {
                 console.log(err);
@@ -20,7 +21,7 @@ export default function Approver() {
     }, [certs]);
 
     // @ts-ignore
-    const filteredCerts = certs.filter(cert => !(cert.isApproved !== false));
+    const filteredCerts = certs.filter(cert => !cert.isApprove);
     const handleApprove = async (cert: any) => {
         // const body = {
         //     "jsonLdContextUrl": "https://schema.affinidi.com/@did:elem:EiC4iIPkKE9Emed3MbAqZ8z8QixcKFPtSoUUSpSP1XA4aA/xampleSchema2V1-0.jsonld",
@@ -84,8 +85,8 @@ export default function Approver() {
                     <Tbody>
                         {filteredCerts.map((cert: ICerts) => (
                             <Tr key={cert.id}>
-                                <Td>{cert.givenName}</Td>
-                                <Td>{cert.familyName}</Td>
+                                <Td>{cert.firstName}</Td>
+                                <Td>{cert.lastName}</Td>
                                 <Td>{cert.course}</Td>
                                 <Td>
                                     <Button

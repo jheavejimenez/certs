@@ -31,9 +31,9 @@ export default function Certificate() {
                     <SimpleGrid columns={3} spacing={5}>
                         {filteredCerts.map((cert: any) => (
                             <CertificateCardHolder
-                                key={cert.id}
-                                firstName={cert.givenName}
-                                lastName={cert.familyName}
+                                key={cert._id}
+                                firstName={cert.firstName}
+                                lastName={cert.lastName}
                                 course={cert.course}
                             />
                         ))}

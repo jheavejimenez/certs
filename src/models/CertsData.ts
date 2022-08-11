@@ -1,7 +1,7 @@
 export default interface ICerts {
     id: string;
-    givenName: string;
-    familyName: string;
+    firstName: string;
+    lastName: string;
     course: string;
     isApprove: boolean;
 }
