@@ -13,7 +13,6 @@ export async function createCertificate(
     // isApprove: boolean
 ) {
     const data = {firstName, lastName, course, isApprove: false};
-    console.log(data);
 
     return await axios.post(`${server.url}/api/certificates`, data);
 }
