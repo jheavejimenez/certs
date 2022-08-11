@@ -16,3 +16,16 @@ export async function createCertificate(
 
     return await axios.post(`${server.url}/api/certificates`, data);
 }
+
+export async function updateCertificate(
+    id: number,
+    firstName: string,
+    lastName: string,
+    course: string,
+    isApprove: string,
+) {
+    const data = {firstName, lastName, course, isApprove };
+    console.log(data);
+
+    return await axios.put(`${server}/api/certificates/${id}`, data);
+}
