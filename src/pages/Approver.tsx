@@ -8,7 +8,7 @@ export default function Approver() {
     const [certs, setCerts] =  useState<ICerts>([]);
     useEffect(() => {
         let interval = setInterval(async () => {
-            await axios.get('http://localhost:3000/certs').then(res => {
+            await axios.get(`{server.url}/api/certificates`).then(res => {
                 setCerts(res.data);
             }).catch(err => {
                 console.log(err);
