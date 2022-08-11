@@ -10,7 +10,6 @@ export async function createCertificate(
     firstName: string,
     lastName: string,
     course: string,
-    // isApprove: boolean
 ) {
     const data = {firstName, lastName, course, isApprove: false};
 
