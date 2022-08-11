@@ -23,29 +23,6 @@ export default function Approver() {
     // @ts-ignore
     const filteredCerts = certs.filter(cert => !cert.isApprove);
     const handleApprove = async (cert: any) => {
-        // const body = {
-        //     "jsonLdContextUrl": "https://schema.affinidi.com/@did:elem:EiC4iIPkKE9Emed3MbAqZ8z8QixcKFPtSoUUSpSP1XA4aA/xampleSchema2V1-0.jsonld",
-        //     "jsonSchemaUrl": "https://schema.affinidi.com/@did:elem:EiC4iIPkKE9Emed3MbAqZ8z8QixcKFPtSoUUSpSP1XA4aA/xampleSchema2V1-0.json",
-        //     "typeName": "xampleSchema2",
-        //     "credentialSubject": {
-        //         "data": {
-        //             "firstname": cert.givenName,
-        //             "lastname": cert.familyName,
-        //             "course": cert.course,
-        //         },
-        //         "holderDid": process.env.REACT_APP_DID // the did value is from postman collection in  env variables
-        //     }
-        // }
-        // // axios header configs
-        // const config = {
-        //     headers: {
-        //         'Api-Key': process.env.REACT_APP_API_KEY_HASH,
-        //         'Content-Type': 'application/json',
-        //     }
-        // }
-        // // @ts-ignore
-        // const {data} = await axios.post(issuerBaseUrl, body, config);
-        // console.log(data);
 
         // TODO: check if the user is already have a cloud wallet
         // TODO: if not, create one
