@@ -26,9 +26,9 @@ router.route('/').get(async (req, res) => {
 router.route('/:id').put(async (req, res) => {
     try {
         console.log(req.body);
-        const {firstName, lastName, course, isApprove} = req.body;
+        const {firstName, lastName, course, isApprove, claimId} = req.body;
         console.log(firstName);
-        const update = {firstName, lastName, course, isApprove};
+        const update = {firstName, lastName, course, isApprove, claimId};
         const product = await Certificate.findByIdAndUpdate(req.params.id, update, {new: true});
         res.json(product)
     } catch (err) {
