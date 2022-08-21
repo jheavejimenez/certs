@@ -1,8 +1,9 @@
 const router = require('express').Router();
-
 let Certificate = require('../models/certificate.model');
 const axios = require("axios");
-const {server} = require("../../src/utils/apiConfigs");
+const server = {
+    affinidi: "https://cloud-wallet-api.prod.affinity-project.org/api/v1",
+}
 
 router.route('/').get(async (req, res) => {
     try {
@@ -25,29 +26,38 @@ router.route('/').get(async (req, res) => {
         .catch(err => res.status(500).json(`error ${err}`));
 });
 
-const login = async() => {
+const login = async () => {
     const login = await axios.post(`${server.affinidi}/users/login`, {
         username: process.env.USERNAME,
         password: process.env.PASSWORD
 
     }, {
-        headers: { contentType: "application/json", "Api-Key": process.env.REACT_APP_API_KEY_HASH }
+        headers: {contentType: "application/json", "Api-Key": process.env.REACT_APP_API_KEY_HASH}
     })
     return login.data.accessToken
 }
 
-const signVc = async(accessToken, data) => {
+const signVc = async (accessToken, data) => {
     const sign = await axios.post(`${server.affinidi}/wallet/sign-credential`, data, {
-        headers: { contentType: "application/json", "Api-Key": process.env.REACT_APP_API_KEY_HASH, "Authorization": `Bearer ${accessToken}` }
+        headers: {
+            "Content-Type": "application/json",
+            "Api-Key": process.env.REACT_APP_API_KEY_HASH,
+            "Authorization": `Bearer ${accessToken}`
+        }
     })
-    return sign.data
+    return sign.data.signedCredential.id
 }
 
 router.route('/:id').put(async (req, res) => {
     try {
         const {firstName, lastName, course, isApprove, unsignedCredential} = req.body;
-        const update = {firstName, lastName, course, isApprove, claimId: response.data.signedCredential.id};
+
+        const accessToken = await login()
+        const claimId = await signVc(accessToken, unsignedCredential)
+
+        const update = {firstName, lastName, course, isApprove, claimId};
         const userCertificate = Certificate.findByIdAndUpdate(req.params.id, update, {new: true});
+
         res.json(userCertificate)
     } catch (err) {
         console.log(err);
