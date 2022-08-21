@@ -11,7 +11,7 @@ export async function createCertificate(
     lastName: string,
     course: string,
 ) {
-    const data = {firstName, lastName, course, isApprove: false};
+    const data = {firstName, lastName, course, isApprove: false, claimId: ""};
 
     return await axios.post(`${server.url}/api/certificates`, data);
 }
@@ -22,8 +22,9 @@ export async function updateCertificate(
     lastName: string,
     course: string,
     isApprove: string,
+    claimId: string
 ) {
-    const data = {firstName, lastName, course, isApprove };
+    const data = {firstName, lastName, course, isApprove, claimId };
     console.log(data);
 
     return await axios.put(`${server}/api/certificates/${id}`, data);
