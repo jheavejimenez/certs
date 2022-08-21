@@ -6,7 +6,7 @@ import {server} from "../utils/apiConfigs";
 
 export default function Approver() {
     // @ts-ignore
-    const [certs, setCerts] =  useState<ICerts>([]);
+    const [certs, setCerts] = useState<ICerts>([]);
     useEffect(() => {
         let interval = setInterval(async () => {
             await axios.get(`${server.url}/api/certificates`).then(res => {
@@ -14,7 +14,7 @@ export default function Approver() {
             }).catch(err => {
                 console.log(err);
             });
-        }, 4000);
+        }, 5000);
         return () => {
             clearInterval(interval); // need to clear the interval when the component unmounts to prevent memory leaks
         };
@@ -23,45 +23,39 @@ export default function Approver() {
     // @ts-ignore
     const filteredCerts = certs.filter(cert => !cert.isApprove);
     const handleApprove = async (cert: any) => {
-        // const body = {
-        //     "jsonLdContextUrl": "https://schema.affinidi.com/@did:elem:EiC4iIPkKE9Emed3MbAqZ8z8QixcKFPtSoUUSpSP1XA4aA/xampleSchema2V1-0.jsonld",
-        //     "jsonSchemaUrl": "https://schema.affinidi.com/@did:elem:EiC4iIPkKE9Emed3MbAqZ8z8QixcKFPtSoUUSpSP1XA4aA/xampleSchema2V1-0.json",
-        //     "typeName": "xampleSchema2",
-        //     "credentialSubject": {
-        //         "data": {
-        //             "firstname": cert.givenName,
-        //             "lastname": cert.familyName,
-        //             "course": cert.course,
-        //         },
-        //         "holderDid": process.env.REACT_APP_DID // the did value is from postman collection in  env variables
-        //     }
-        // }
-        // // axios header configs
-        // const config = {
-        //     headers: {
-        //         'Api-Key': process.env.REACT_APP_API_KEY_HASH,
-        //         'Content-Type': 'application/json',
-        //     }
-        // }
-        // // @ts-ignore
-        // const {data} = await axios.post(issuerBaseUrl, body, config);
-        // console.log(data);
+        await axios.post(`https://affinity-issuer.prod.affinity-project.org/api/v1/vc/build-unsigned`,
+            {
+                "jsonLdContextUrl": "https://schema.affinidi.com/@did:elem:EiC4iIPkKE9Emed3MbAqZ8z8QixcKFPtSoUUSpSP1XA4aA/xampleSchema2V1-0.jsonld",
+                "jsonSchemaUrl": "https://schema.affinidi.com/@did:elem:EiC4iIPkKE9Emed3MbAqZ8z8QixcKFPtSoUUSpSP1XA4aA/xampleSchema2V1-0.json",
+                "typeName": "xampleSchema2",
+                "credentialSubject": {
+                    "data": {
+                        "firstname": `${cert.firstName}`,
+                        "lastname": `${cert.lastName}`,
+                        "course":`${cert.course}`
+                    }
+                },
+                "holderDid": "did:elem:EiBtBJadx-Ctmevx86uXK8oawF44Kz9Oj6yfZ1-TiRiMIg;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBek5HTmlOV0UwWmpkbE56WXhaamhqTlRCaVptRXhNMk15TWpFd01XWmtNbVl5T0RKbU1EQXdOV0U1TnpoalpHWmhaalF3WVdZMU56YzBOMkkwT1dSa1lTSjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TTJZeE1qSTJPV0ptT1RFMk56QXpPV0ZqTW1VMk5Ea3hPVFkwWVRVeU1XWXlOMll6TnpabE9XRmpabU14WVRKaU5USmhNVEl3TjJVNU9EYzBZV1ZsTm1NaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoibGNWYVJ1MWFxRnpZT0FfdERfVnpNZTAteXVadklpZFhxZWFuMktwR0tzd0s0b1pVVndqcmFMc3g5UE4yRk9wVTZic0QwTXhFTVA4Nm11YjcwOTBqN3cifQ"
+            },{
+                headers: {
+                    "Content-Type": "application/json",
+                    "Api-Key": `${process.env.REACT_APP_API_KEY_HASH}`
+                }
 
-        // TODO: check if the user is already have a cloud wallet
-        // TODO: if not, create one
-        // TODO: after i call the build unsign Affinidi API
-        // TODO: I need to call the Issuer API(Sign VC)
-
-        // for the meantime I will update the key value pair isApproved == true in Json server
-        await axios.put(`http://localhost:3000/certs/${cert.id}`, {
-            givenName: cert.givenName,
-            familyName: cert.familyName,
-            course: cert.course,
-            isApproved: true
         }).then(res => {
-            console.log(res);
-        }).catch(err => {
-            console.log(err);
+            const unsignedVC = res.data.unsignedCredential;
+            console.log(unsignedVC);
+            axios.put(`${server.url}/api/certificates/${cert._id}`, {
+                firstName: cert.firstName,
+                lastName: cert.lastName,
+                course: cert.course,
+                isApprove: true,
+                unsignedCredentials: unsignedVC
+            }).then(res => {
+                console.log(cert._id);
+            }).catch(err => {
+                console.log(err);
+            })
         })
     }
 
@@ -95,12 +89,12 @@ export default function Approver() {
                                         color={'white'}
                                         _hover={{
                                             bg: 'blue.500',
-                                    }}>
+                                        }}>
                                         Approve
                                     </Button>
                                 </Td>
                             </Tr>
-                            ))}
+                        ))}
                     </Tbody>
                 </Table>
             </TableContainer>
