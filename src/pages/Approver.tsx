@@ -39,7 +39,7 @@ export default function Approver() {
             },{
                 headers: {
                     "Content-Type": "application/json",
-                    "Api-Key": "e062901de042b648bb4d94fe745344b2d564d050a53daaaad7a3a5fefc4e6b68"
+                    "Api-Key": `${process.env.REACT_APP_API_KEY_HASH}`
                 }
 
         }).then(res => {

@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 let Certificate = require('../models/certificate.model');
 const axios = require("axios");
+const {server} = require("../../src/utils/apiConfigs");
 
 router.route('/').get(async (req, res) => {
     try {
@@ -25,19 +26,19 @@ router.route('/').get(async (req, res) => {
 });
 
 const login = async() => {
-    const login = await axios.post(`/users/login`, {
+    const login = await axios.post(`${server.affinidi}/users/login`, {
         username: process.env.USERNAME,
         password: process.env.PASSWORD
 
     }, {
-        headers: { contentType: "application/json", "Api-Key": process.env.API_KEY }
+        headers: { contentType: "application/json", "Api-Key": process.env.REACT_APP_API_KEY_HASH }
     })
     return login.data.accessToken
 }
 
 const signVc = async(accessToken, data) => {
-    const sign = await axios.post("wallet/sign-credential", data, {
-        headers: { contentType: "application/json", "Api-Key": process.env.API_KEY, "Authorization": `Bearer ${accessToken}` }
+    const sign = await axios.post(`${server.affinidi}/wallet/sign-credential`, data, {
+        headers: { contentType: "application/json", "Api-Key": process.env.REACT_APP_API_KEY_HASH, "Authorization": `Bearer ${accessToken}` }
     })
     return sign.data
 }
