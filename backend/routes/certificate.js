@@ -32,7 +32,7 @@ const login = async () => {
         password: process.env.PASSWORD
 
     }, {
-        headers: {contentType: "application/json", "Api-Key": process.env.REACT_APP_API_KEY_HASH}
+        headers: {"Content-Type": "application/json", "Api-Key": process.env.REACT_APP_API_KEY_HASH}
     })
     return login.data.accessToken
 }
@@ -45,6 +45,7 @@ const signVc = async (accessToken, data) => {
             "Authorization": `Bearer ${accessToken}`
         }
     })
+    console.log(sign.data.signedCredential.id)
     return sign.data.signedCredential.id
 }
 
