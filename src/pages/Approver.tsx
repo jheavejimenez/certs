@@ -43,15 +43,16 @@ export default function Approver() {
                 }
 
         }).then(res => {
-            const unsignedVC= res.data.unsignedCredential;
+            const unsignedVC = res.data.unsignedCredential;
+            console.log(unsignedVC);
             axios.put(`${server.url}/api/certificates/${cert._id}`, {
                 firstName: cert.firstName,
                 lastName: cert.lastName,
                 course: cert.course,
-                isApproved: true,
-                data: unsignedVC
+                isApprove: true,
+                unsignedCredentials: unsignedVC
             }).then(res => {
-                console.log(res);
+                console.log(cert._id);
             }).catch(err => {
                 console.log(err);
             })

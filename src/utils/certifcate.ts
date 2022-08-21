@@ -21,10 +21,10 @@ export async function updateCertificate(
     firstName: string,
     lastName: string,
     course: string,
-    isApprove: string,
-    unsignedCredential: string
+    isApprove: boolean,
+    unsignedCredentials: string
 ) {
-    const data = {firstName, lastName, course, isApprove, unsignedCredential };
+    const data = {firstName, lastName, course, isApprove, unsignedCredentials };
     console.log(data);
 
     return await axios.put(`${server}/api/certificates/${id}`, data);

@@ -38,28 +38,25 @@ const login = async () => {
 }
 
 const signVc = async (accessToken, data) => {
-    const sign = await axios.post(`${server.affinidi}/wallet/sign-credential`, data, {
+    const sign = await axios.post(`${server.affinidi}/wallet/sign-credential`,{"unsignedCredential": data}, {
         headers: {
             "Content-Type": "application/json",
             "Api-Key": process.env.REACT_APP_API_KEY_HASH,
             "Authorization": `Bearer ${accessToken}`
         }
     })
-    console.log(sign.data.signedCredential.id)
     return sign.data.signedCredential.id
 }
 
 router.route('/:id').put(async (req, res) => {
     try {
-        const {firstName, lastName, course, isApprove, unsignedCredential} = req.body;
-
+        const {firstName, lastName, course, isApprove, unsignedCredentials} = req.body;
         const accessToken = await login()
-        const claimId = await signVc(accessToken, unsignedCredential)
+        const claimId = await signVc(accessToken, unsignedCredentials)
 
         const update = {firstName, lastName, course, isApprove, claimId};
-        const userCertificate = Certificate.findByIdAndUpdate(req.params.id, update, {new: true});
-
-        res.json(userCertificate)
+        const updatedCertificate = await Certificate.findByIdAndUpdate(req.params.id, update, {new: true});
+        res.json(updatedCertificate)
     } catch (err) {
         console.log(err);
         res.status(500).json(`error ${err}`)
