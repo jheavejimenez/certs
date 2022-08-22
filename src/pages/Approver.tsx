@@ -39,7 +39,7 @@ export default function Approver() {
                 lastName: cert.lastName,
                 course: cert.course,
                 isApprove: true,
-                unsignedCredentials: unsignedVC
+                unsignedVC
             }).then(res => {
                 console.log(cert._id);
             }).catch(err => {
