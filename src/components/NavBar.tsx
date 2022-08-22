@@ -1,20 +1,7 @@
 import {ReactNode} from 'react';
-import {
-    Avatar,
-    Box,
-    Button,
-    Flex,
-    HStack,
-    Link,
-    Menu,
-    MenuButton,
-    MenuDivider,
-    MenuItem,
-    MenuList,
-    useColorModeValue,
-} from '@chakra-ui/react';
+import {Avatar, Box, Button, Flex, HStack, Link, Menu, MenuButton, useColorModeValue,} from '@chakra-ui/react';
 
-const Links = ['Home', 'Certificates' ];
+const Links = ['Home', 'Certificates'];
 
 const NavLink = ({children}: { children: ReactNode }) => (
     <Link
