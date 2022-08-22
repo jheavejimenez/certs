@@ -1,11 +1,11 @@
 import {Avatar, Box, Button, Flex, HStack, Menu, MenuButton, useColorModeValue,} from '@chakra-ui/react';
 
-export default function Simple() {
+export default function NavigationBar() {
     return (
         <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
             <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
                 <HStack spacing={8} alignItems={'center'}>
-                    <Box>Logo</Box>
+                    <Box><strong>XPERTO</strong></Box>
                     <HStack
                         as={'nav'}
                         spacing={4}
@@ -30,7 +30,6 @@ export default function Simple() {
                     </Menu>
                 </Flex>
             </Flex>
-
         </Box>
     );
 }

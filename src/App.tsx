@@ -3,12 +3,12 @@ import { BrowserRouter, Route, Routes} from "react-router-dom";
 import Form from "./pages/Form";
 import  Certificate  from "./pages/Certificate";
 import Approver from "./pages/Approver";
-import Simple from "./components/NavBar";
+import NavigationBar from "./components/NavBar";
 
 export const App: React.FC<{}> = props => {
     return (
         <BrowserRouter>
-            <Simple />
+            <NavigationBar />
             <Routes>
                 <Route path={"/"} element={<Form/>}/>
                 <Route path={"certificate"} element={<Certificate/>}/>
