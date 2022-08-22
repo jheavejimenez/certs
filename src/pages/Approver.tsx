@@ -3,6 +3,7 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import ICerts from "../models/CertsData"
 import {server} from "../utils/apiConfigs";
+import {schoolSchema} from "../utils/schemaVC";
 
 export default function Approver() {
     // @ts-ignore
@@ -23,8 +24,8 @@ export default function Approver() {
     // @ts-ignore
     const filteredCerts = certs.filter(cert => !cert.isApprove);
     const handleApprove = async (cert: any) => {
-        await axios.post(`https://affinity-issuer.prod.affinity-project.org/api/v1/vc/build-unsigned`,
-            {},{
+        let data = schoolSchema(cert.firstName, cert.lastName, cert.course);
+        await axios.post(`${server.affinidi}/vc/build-unsigned`, data,{
                 headers: {
                     "Content-Type": "application/json",
                     "Api-Key": `${process.env.REACT_APP_API_KEY_HASH}`
