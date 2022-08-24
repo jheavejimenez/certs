@@ -18,16 +18,14 @@ import {useNavigate} from "react-router-dom";
 
 export default function SignInForm() {
     const [username, setUsername] = React.useState('');
-    const [email, setEmail] = React.useState('');
     const {setUser} = React.useContext(UserContext);
     let navigate = useNavigate();
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
-        const user = await createUser(username, email);
+        const user = await createUser(username);
         setUser(user);
 
-        setEmail('');
         setUsername('');
 
         navigate('/request-certificate');
@@ -60,13 +58,6 @@ export default function SignInForm() {
                                     placeholder='Username'
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
-                                />
-                                <FormLabel>Email Address</FormLabel>
-                                <Input
-                                    id='email'
-                                    placeholder='Email Address'
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             </FormControl>
                             <Stack spacing={10}>
