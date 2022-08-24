@@ -50,11 +50,11 @@ const signVc = async (accessToken, data) => {
 
 router.route('/:id').put(async (req, res) => {
     try {
-        const {firstName, lastName, course, isApprove, unsignedCredentials} = req.body;
+        const {firstName, lastName, email, course, isApprove, unsignedCredentials} = req.body;
         const accessToken = await login()
         const claimId = await signVc(accessToken, unsignedCredentials)
 
-        const update = {firstName, lastName, course, isApprove, claimId};
+        const update = {firstName, lastName, email, course, isApprove, claimId};
         const updatedCertificate = await Certificate.findByIdAndUpdate(req.params.id, update, {new: true});
         res.json(updatedCertificate)
     } catch (err) {

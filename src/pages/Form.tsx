@@ -19,6 +19,7 @@ export default function Form() {
     const navigate = useNavigate();
     const [firstName, setFirstName] = React.useState('');
     const [lastName, setLastName] = React.useState('');
+    const [email, setEmail] = React.useState('');
     const [course, setCourse] = React.useState('');
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
@@ -26,6 +27,7 @@ export default function Form() {
         await createCertificate(
             firstName,
             lastName,
+            email,
             course,
         )
         navigate('/certificate')
@@ -65,6 +67,13 @@ export default function Form() {
                                     placeholder='Last name'
                                     value={lastName}
                                     onChange={(e) => setLastName(e.target.value)}
+                                />
+                                <FormLabel>Email Address</FormLabel>
+                                <Input
+                                    id='email'
+                                    placeholder='Email Address'
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                                 <FormLabel>Course</FormLabel>
                                 <Input
