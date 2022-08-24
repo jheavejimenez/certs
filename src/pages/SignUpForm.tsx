@@ -15,7 +15,7 @@ import React from "react";
 import {createUser} from "../utils/users";
 import {UserContext} from "../context/UserContext";
 
-export default function SignInForm() {
+export default function SignUpForm() {
     const [username, setUsername] = React.useState('');
     const [email, setEmail] = React.useState('');
     const {setUser} = React.useContext(UserContext);
@@ -36,7 +36,7 @@ export default function SignInForm() {
             bg={useColorModeValue('gray.50', 'gray.800')}>
             <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
                 <Stack align={'center'}>
-                    <Heading fontSize={'2xl'}>Create Your Decentralized Certification</Heading>
+                    <Heading fontSize={'4xl'}>Sign Up</Heading>
                     <Text fontSize={'lg'} color={'gray.600'}>
                         to enjoy all of our cool <Link color={'blue.400'}>features</Link> ✌️
                     </Text>
@@ -72,7 +72,7 @@ export default function SignInForm() {
                                     _hover={{
                                         bg: 'blue.500',
                                     }}>
-                                    Sign In
+                                    Sign Up
                                 </Button>
                             </Stack>
                         </Stack>
