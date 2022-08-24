@@ -6,5 +6,6 @@ export async function createUser(
     email: string,
 ) {
     const data = {username, email};
-    return await axios.post(`${server.url}/api/users`, data);
+    const response = await axios.post(`${server.url}/api/users`, data);
+    return response.data = {username: response.data.username, id: response.data._id};
 }
