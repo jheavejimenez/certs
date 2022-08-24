@@ -4,7 +4,6 @@ import {
     FormControl,
     FormLabel,
     Input,
-    Checkbox,
     Stack,
     Link,
     Button,
@@ -35,7 +34,7 @@ export default function SignInForm() {
                     <Stack spacing={4}>
                         <FormControl id="user-name">
                             <FormLabel>Username</FormLabel>
-                            <Input type="text" />
+                            <Input type="text"/>
                         </FormControl>
                         <FormControl id="email">
                             <FormLabel>Email address</FormLabel>
