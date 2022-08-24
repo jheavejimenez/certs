@@ -29,6 +29,10 @@ export default function OTP() {
             bg={useColorModeValue('gray.50', 'gray.800')}>
             <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
                 <Stack align={'center'}>
+                    <Heading fontSize={'4xl'}>Cloud Wallet</Heading>
+                    <Text fontSize={'lg'} color={'gray.600'}>
+                        Enter your six digit code sent to your email
+                    </Text>
                 </Stack>
                 <Box
                     rounded={'lg'}
@@ -40,8 +44,7 @@ export default function OTP() {
                             <FormControl>
                                 <FormLabel>Confirmation Code</FormLabel>
                                 <Input
-                                    id='verificationCode'
-                                    placeholder='Verification Code'
+                                    id='confirmation-Code'
                                     value={confirmationCode}
                                     onChange={(e) => setConfirmationCode(e.target.value)}
                                 />
