@@ -6,29 +6,16 @@ import {
     FormLabel,
     Heading,
     Input,
-    Link,
     Stack,
     Text,
     useColorModeValue,
 } from '@chakra-ui/react';
 import React from "react";
-import {createUser} from "../utils/users";
-import {UserContext} from "../context/UserContext";
-import {useNavigate} from "react-router-dom";
 
-export default function SignInForm() {
-    const [username, setUsername] = React.useState('');
-    const {setUser} = React.useContext(UserContext);
-    let navigate = useNavigate();
-
+export default function OTP() {
+    const [confirmationCode, setConfirmationCode] = React.useState('');
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
-        const user = await createUser(username);
-        setUser(user);
-
-        setUsername('');
-
-        navigate('/request-certificate');
     };
 
     return (
@@ -39,9 +26,9 @@ export default function SignInForm() {
             bg={useColorModeValue('gray.50', 'gray.800')}>
             <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
                 <Stack align={'center'}>
-                    <Heading fontSize={'4xl'}>Sign In</Heading>
+                    <Heading fontSize={'4xl'}>Cloud Wallet</Heading>
                     <Text fontSize={'lg'} color={'gray.600'}>
-                        to enjoy all of our cool <Link color={'blue.400'}>features</Link> ✌️
+                        Enter your six digit code sent to your email
                     </Text>
                 </Stack>
                 <Box
@@ -52,15 +39,12 @@ export default function SignInForm() {
                     <form onSubmit={handleSubmit}>
                         <Stack spacing={4}>
                             <FormControl>
-                                <FormLabel>Username</FormLabel>
+                                <FormLabel>Confirmation Code</FormLabel>
                                 <Input
-                                    id='username'
-                                    autoComplete={"off"}
-                                    placeholder='Username'
-                                    value={username}
-                                    onChange={(e) => setUsername(e.target.value)}
+                                    id='confirmation-Code'
+                                    value={confirmationCode}
+                                    onChange={(e) => setConfirmationCode(e.target.value)}
                                 />
-
                             </FormControl>
                             <Stack spacing={10}>
                                 <Button
@@ -70,7 +54,7 @@ export default function SignInForm() {
                                     _hover={{
                                         bg: 'blue.500',
                                     }}>
-                                    Sign In
+                                    Confirm
                                 </Button>
                             </Stack>
                         </Stack>

@@ -1,33 +1,14 @@
-import {ReactNode} from 'react';
-import {
-    Avatar,
-    Box,
-    Button,
-    Flex,
-    HStack,
-    Link,
-    Menu,
-    MenuButton,
-    MenuItem,
-    MenuList,
-    useColorModeValue,
-} from '@chakra-ui/react';
+import {Avatar, Box, Button, Flex, HStack, Menu, MenuButton, useColorModeValue,} from '@chakra-ui/react';
+import {Link} from "react-router-dom";
 
-const Links = ['Home', 'Certificates'];
-
-const NavLink = ({children}: { children: ReactNode }) => (
-    <Link
-        px={2}
-        py={1}
-        rounded={'md'}
-        _hover={{
-            textDecoration: 'none',
-            bg: useColorModeValue('gray.200', 'gray.700'),
-        }}
-        href={'#'}>
-        {children}
-    </Link>
-);
+const Links = {
+    Home: {
+        href: "/",
+    },
+    Certificates: {
+        href: "/certificates",
+    }
+}
 
 export default function NavigationBar() {
     return (
@@ -40,8 +21,11 @@ export default function NavigationBar() {
                             as={'nav'}
                             spacing={4}
                             display={{base: 'none', md: 'flex'}}>
-                            {Links.map((link) => (
-                                <NavLink key={link}>{link}</NavLink>
+                            {Object.entries(Links).map(([name, {href}]) => (
+                                <Link
+                                    to={href}
+                                    key={name}
+                                >{name}</Link>
                             ))}
                         </HStack>
                     </HStack>
@@ -60,9 +44,6 @@ export default function NavigationBar() {
                                     }
                                 />
                             </MenuButton>
-                            <MenuList>
-                                <MenuItem>Logout</MenuItem>
-                            </MenuList>
                         </Menu>
                     </Flex>
                 </Flex>
