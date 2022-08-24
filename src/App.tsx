@@ -6,10 +6,10 @@ import Approver from "./pages/Approver";
 import NavigationBar from "./components/NavBar";
 import SignInForm from "./pages/SignInForm";
 
-export const App: React.FC<{}> = props => {
+export default function App() {
     return (
         <BrowserRouter>
-            <NavigationBar />
+            {/*<NavigationBar />*/}
             <Routes>
                 <Route path={"/"} element={<SignInForm/>}/>
                 <Route path={"certificate"} element={<Certificate/>}/>
