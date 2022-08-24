@@ -23,6 +23,9 @@ connection.once('open', () => {
 });
 
 const certificateRouter = require('./routes/certificate');
+const userRouter = require('./routes/users');
+
+app.use('/api/users', userRouter);
 app.use('/api/certificates', certificateRouter);
 
 
