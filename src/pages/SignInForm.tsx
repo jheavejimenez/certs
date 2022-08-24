@@ -11,8 +11,16 @@ import {
     Text,
     useColorModeValue,
 } from '@chakra-ui/react';
+import React, {useState} from "react";
 
 export default function SignInForm() {
+    const [userName, setUserName] = useState<string>();
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        console.log(userName);
+        // save user id to global state
+    }
     return (
         <Flex
             minH={'100vh'}
