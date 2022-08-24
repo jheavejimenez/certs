@@ -10,6 +10,5 @@ export async function createUser(
     return response.data = {
         id: response.data._id,
         username: response.data.username,
-        email: response.data.email,
     };
 }
