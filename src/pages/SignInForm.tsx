@@ -22,8 +22,8 @@ export default function SignInForm() {
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
-        const newUser = await createUser(username, email);
-        setUser(newUser);
+        const user = await createUser(username, email);
+        setUser(user);
         setEmail('');
         setUsername('');
     };
