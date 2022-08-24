@@ -33,22 +33,15 @@ export default function SignInForm() {
                     boxShadow={'lg'}
                     p={8}>
                     <Stack spacing={4}>
+                        <FormControl id="user-name">
+                            <FormLabel>Username</FormLabel>
+                            <Input type="text" />
+                        </FormControl>
                         <FormControl id="email">
                             <FormLabel>Email address</FormLabel>
-                            <Input type="email" />
-                        </FormControl>
-                        <FormControl id="password">
-                            <FormLabel>Password</FormLabel>
-                            <Input type="password" />
+                            <Input type="email" autoComplete={"off"}/>
                         </FormControl>
                         <Stack spacing={10}>
-                            <Stack
-                                direction={{ base: 'column', sm: 'row' }}
-                                align={'start'}
-                                justify={'space-between'}>
-                                <Checkbox>Remember me</Checkbox>
-                                <Link color={'blue.400'}>Forgot password?</Link>
-                            </Stack>
                             <Button
                                 bg={'blue.400'}
                                 color={'white'}
