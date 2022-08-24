@@ -13,14 +13,6 @@ export default function App() {
     });
     return (
         <UserContext.Provider value={{user, setUser}}>
-            <BrowserRouter>
-                {/*<NavigationBar />*/}
-                <Routes>
-                    <Route path={"/"} element={<SignInForm/>}/>
-                    <Route path={"certificate"} element={<Certificate/>}/>
-                    <Route path={"approver"} element={<Approver/>}/>
-                </Routes>
-            </BrowserRouter>
         </UserContext.Provider>
     );
 };
