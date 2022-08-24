@@ -9,7 +9,7 @@ const userSchema = new Schema({
         trim: true,
         minlength: 3,
     },
-    email: {type: String}
+    email: {type: String, required: true}
 }, {
     timestamps: true,
 });
