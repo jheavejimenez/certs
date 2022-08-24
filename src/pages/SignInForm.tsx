@@ -24,6 +24,7 @@ export default function SignInForm() {
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         const user = await createUser(username);
+       console.log(user);
         setUser(user);
 
         setUsername('');
@@ -55,6 +56,7 @@ export default function SignInForm() {
                                 <FormLabel>Username</FormLabel>
                                 <Input
                                     id='username'
+                                    autoComplete={"off"}
                                     placeholder='Username'
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
