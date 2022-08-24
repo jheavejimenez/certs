@@ -6,14 +6,11 @@ import {
     FormLabel,
     Heading,
     Input,
-    Link,
     Stack,
     Text,
     useColorModeValue,
 } from '@chakra-ui/react';
 import React from "react";
-import {createUser} from "../utils/users";
-import {UserContext} from "../context/UserContext";
 
 export default function OTP() {
     const [confirmationCode, setConfirmationCode] = React.useState('');

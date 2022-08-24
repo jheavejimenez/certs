@@ -19,9 +19,9 @@ export default function App() {
             <div>
                 <NavigationBar/>
                 <Routes>
-                    <Route path={"/"} element={<OTP />}/>
+                    <Route path={"/"} element={<SignUpForm />}/>
                     <Route path={"/request-certificate"} element={<Form />} />
-                    {/*<Route path={"/confirm-signup"} element={<ConfirmSignUp />} />*/}
+                    <Route path={"confirmation-code"} element={<OTP />} />
                     <Route path={"/certificates"} element={<Certificate />} />
                     <Route path={"/admin"} element={<Approver />} />
                 </Routes>
