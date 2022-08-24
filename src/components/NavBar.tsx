@@ -1,18 +1,5 @@
-import {ReactNode} from 'react';
-import {
-    Avatar,
-    Box,
-    Button,
-    Flex,
-    HStack,
-    Menu,
-    MenuButton,
-    MenuItem,
-    MenuList,
-    useColorModeValue,
-} from '@chakra-ui/react';
+import {Avatar, Box, Button, Flex, HStack, Menu, MenuButton, useColorModeValue,} from '@chakra-ui/react';
 import {Link} from "react-router-dom";
-import {hover} from "@testing-library/user-event/dist/hover";
 
 const Links = {
     Home: {
@@ -57,9 +44,6 @@ export default function NavigationBar() {
                                     }
                                 />
                             </MenuButton>
-                            <MenuList>
-                                <MenuItem>Logout</MenuItem>
-                            </MenuList>
                         </Menu>
                     </Flex>
                 </Flex>
