@@ -6,6 +6,7 @@ import SignUpForm from "./pages/SignUpForm";
 import Form from "./pages/Form";
 import Certificate from "./pages/Certificate";
 import Approver from "./pages/Approver";
+import OTP from "./pages/OTP";
 
 export default function App() {
     const [user, setUser] = React.useState<any>({
@@ -18,7 +19,7 @@ export default function App() {
             <div>
                 <NavigationBar/>
                 <Routes>
-                    <Route path={"/"} element={<SignUpForm />}/>
+                    <Route path={"/"} element={<OTP />}/>
                     <Route path={"/request-certificate"} element={<Form />} />
                     {/*<Route path={"/confirm-signup"} element={<ConfirmSignUp />} />*/}
                     <Route path={"/certificates"} element={<Certificate />} />
