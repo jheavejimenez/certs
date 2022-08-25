@@ -8,6 +8,9 @@ type TUserContextType = {
     setUser: (user: {id: string, name: string}) => void,
 }
 export const UserContext = createContext<TUserContextType>({
-    user: {},
+    user: {
+        id: '',
+        name: '',
+    },
     setUser: (user: any) => {},
 });
