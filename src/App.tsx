@@ -6,6 +6,7 @@ import SignInForm from "./pages/SignInForm";
 import Form from "./pages/Form";
 import Certificate from "./pages/Certificate";
 import Approver from "./pages/Approver";
+import Dashboard from "./pages/Dashboard";
 import OTP from "./pages/OTP";
 
 export default function App() {
@@ -19,7 +20,7 @@ export default function App() {
             <div>
                 <NavigationBar/>
                 <Routes>
-                    {/*<Route path="/" element={<Dashboard/>}/>*/}
+                    <Route path="/" element={<Dashboard/>}/>
                     <Route path={"/sign-in"} element={<SignInForm />}/>
                     <Route path={"/request-certificate"} element={<Form />} />
                     <Route path={"confirmation-code"} element={<OTP />} />
