@@ -2,7 +2,7 @@ import {Avatar, Box, Button, Flex, HStack, Menu, MenuButton, useColorModeValue,}
 import {Link} from "react-router-dom";
 
 const Links = {
-    Home: {
+    Dashboard: {
         href: "/",
     },
     Certificates: {
