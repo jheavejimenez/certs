@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import ICerts from "../models/CertsData"
 import {server} from "../utils/apiConfigs";
 import {schoolSchema} from "../utils/schemaVC";
-import {getSumittedApplications} from "../utils/approver";
+import {approveApplication, getSumittedApplications} from "../utils/approver";
 
 export default function Approver() {
     const [certs, setCerts] = useState([]);
@@ -32,19 +32,21 @@ export default function Approver() {
                 }
 
         }).then(res => {
-            const unsignedVC = res.data.unsignedCredential;
-            console.log(unsignedVC);
-            axios.put(`${server.url}/api/certificates/${cert._id}`, {
-                firstName: cert.firstName,
-                lastName: cert.lastName,
-                course: cert.course,
-                isApprove: true,
-                unsignedVC
-            }).then(res => {
-                console.log(cert._id);
-            }).catch(err => {
-                console.log(err);
-            })
+            async function buildUsignVc(){
+                const isApprove = true;
+                const unsignedVC = res.data.unsignedCredential;
+
+                await approveApplication(
+                    cert.id,
+                    cert.firstName,
+                    cert.lastName,
+                    cert.email,
+                    cert.course,
+                    isApprove,
+                    unsignedVC
+                )
+            }
+            buildUsignVc();
         })
     }
 
