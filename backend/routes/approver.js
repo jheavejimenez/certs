@@ -4,7 +4,6 @@ const axios = require("axios");
 const {affinidi} = require("../utils/apiConfig");
 
 router.get('/', async (req, res) => {
-    // get all certificates
     const certificates = await Certificate.find();
     res.json(certificates);
 });
