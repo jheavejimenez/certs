@@ -68,7 +68,7 @@ export default function Approver() {
                     </Thead>
                     <Tbody>
                         {certs.map((cert:any) => (
-                            <Tr key={cert.id}>
+                            <Tr key={cert._id}>
                                 <Td>{cert.firstName}</Td>
                                 <Td>{cert.lastName}</Td>
                                 <Td>{cert.course}</Td>
