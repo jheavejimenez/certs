@@ -2,22 +2,22 @@ import {Box, Container, Flex, Heading, List, ListItem, Spacer,} from '@chakra-ui
 import {CustomButton} from "../components/Button";
 import {UserContext} from "../context/UserContext";
 import {useContext, useEffect, useState} from "react";
-import {findCertificate} from "../utils/certifcate";
+import {getApplications} from "../utils/certifcate";
 
 function Dashboard() {
     const {user} = useContext(UserContext);
     const [myApplications, setMyApplications] = useState([]);
 
     useEffect(() => {
-        async function getApplications() {
-            const res = await findCertificate(user.id)
+        async function fetchApplications() {
+            const res = await getApplications(user.id)
             setMyApplications(res);
             console.log(res)
         }
 
-        getApplications()
+        fetchApplications()
         const interval = setInterval(() => {
-            getApplications()
+            fetchApplications()
         },10000)
 
         return()=>clearInterval(interval)
