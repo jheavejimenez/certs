@@ -1,16 +1,23 @@
-import {Box, Container, Flex, Heading, List, ListItem, Spacer,} from '@chakra-ui/react';
+import {Box, Container, Flex, Heading, List, ListItem, Spacer, useColorModeValue,} from '@chakra-ui/react';
 import {CustomButton} from "../components/Button";
 import {UserContext} from "../context/UserContext";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
+import axios from "axios";
 import {findCertificate} from "../utils/certifcate";
 
 function Dashboard() {
     const {user} = useContext(UserContext);
+    const [myApplications, setMyApplications] = useState([]);
+
     useEffect(() => {
-        findCertificate(user.id).then(res => {
-            console.log(res);
-        })
-    }, [])
+        async function getApplications() {
+            const res = await findCertificate(user.id)
+            setMyApplications(res);
+            console.log(res)
+        }
+        getApplications()
+    },[])
+
     return (
         <>
             <Container py={5} maxW={'container.lg'}>
@@ -26,12 +33,18 @@ function Dashboard() {
             </Container>
             <Container py={5} maxW={'container.lg'}>
                 <List spacing={3}>
-                    <ListItem mb={5} p={3} bg={"red.300"}>
+                    <ListItem mb={5} p={3} bg={useColorModeValue('gray.100', 'gray.700')}>
                         <Flex>
-                            <h1>Certificate</h1>
+                            <Heading
+                                textTransform={'capitalize'}
+                                fontSize={'2xl'}
+                                color={useColorModeValue('gray.800', 'gray.200')}
+                            >
+                                course title
+                            </Heading>
                             <Spacer/>
                             <Box>
-                                <CustomButton title={"Request Certificate"} path={"/request-certificate"}/>
+                                <CustomButton title={"View Certificate"} path={"/certificates"}/>
                             </Box>
                         </Flex>
                     </ListItem>
