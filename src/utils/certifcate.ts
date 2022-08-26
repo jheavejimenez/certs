@@ -21,18 +21,3 @@ export async function createCertificate(
 
     return await axios.post(`${server.url}/api/certificates`, data);
 }
-
-export async function updateCertificate(
-    id: number,
-    firstName: string,
-    lastName: string,
-    email: string,
-    course: string,
-    isApprove: boolean,
-    unsignedCredentials: string
-) {
-    const data = {firstName, lastName, email, course, isApprove, unsignedCredentials };
-    console.log(data);
-
-    return await axios.put(`${server}/api/certificates/${id}`, data);
-}
