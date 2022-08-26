@@ -12,7 +12,6 @@ router.get('/', async (req, res) => {
 
 router.route('/:id').get(async (req, res) => {
     const certificates = await Certificate.find({user: req.params.id});
-    console.log(certificates);
     res.json(certificates);
 }).post((req, res) => {
     const newCertificate = new Certificate(req.body);

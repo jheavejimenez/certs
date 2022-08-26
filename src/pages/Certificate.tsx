@@ -23,7 +23,7 @@ export default function Certificate() {
             clearInterval(interval); // need to clear the interval when the component unmounts to prevent memory leaks
         };
 
-    }, [certs]);
+    }, []);
     // @ts-ignore
     return (
         <Container maxW={'1280px'} marginTop={'10vh'}>

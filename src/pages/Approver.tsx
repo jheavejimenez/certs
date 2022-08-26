@@ -9,17 +9,20 @@ export default function Approver() {
     // @ts-ignore
     const [certs, setCerts] = useState<ICerts>([]);
     useEffect(() => {
+        async function fetchCerts() {
+            const res = await axios.get(`${server.url}/api/certificates`)
+            setCerts(res.data)
+           console.log(res.data)
+        }
+
+        fetchCerts()
         let interval = setInterval(async () => {
-            await axios.get(`${server.url}/api/certificates`).then(res => {
-                setCerts(res.data);
-            }).catch(err => {
-                console.log(err);
-            });
-        }, 5000);
+            fetchCerts()
+        }, 10000);
         return () => {
             clearInterval(interval); // need to clear the interval when the component unmounts to prevent memory leaks
         };
-    }, [certs]);
+    }, []);
 
     // @ts-ignore
     const filteredCerts = certs.filter(cert => !cert.isApprove);
