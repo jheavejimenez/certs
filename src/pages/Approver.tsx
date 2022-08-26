@@ -12,7 +12,6 @@ export default function Approver() {
         async function fetchCerts() {
             const res = await getSumittedApplications()
             setCerts(res)
-           console.log(res)
         }
 
         fetchCerts()
