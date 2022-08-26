@@ -6,6 +6,11 @@ export async function  getApplications(id: number) {
     return response.data;
 }
 
+export async function  getApprovedCertificate(id: number) {
+    const response = await axios.get(`${server.url}/api/certificates`);
+    return response.data;
+}
+
 export async function createCertificate(
     firstName: string,
     lastName: string,
