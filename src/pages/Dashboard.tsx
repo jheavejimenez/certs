@@ -1,8 +1,7 @@
-import {Box, Container, Flex, Heading, List, ListItem, Spacer, useColorModeValue,} from '@chakra-ui/react';
+import {Box, Container, Flex, Heading, List, ListItem, Spacer,} from '@chakra-ui/react';
 import {CustomButton} from "../components/Button";
 import {UserContext} from "../context/UserContext";
 import {useContext, useEffect, useState} from "react";
-import axios from "axios";
 import {findCertificate} from "../utils/certifcate";
 
 function Dashboard() {
@@ -15,8 +14,14 @@ function Dashboard() {
             setMyApplications(res);
             console.log(res)
         }
+
         getApplications()
-    },[])
+        const interval = setInterval(() => {
+            getApplications()
+        },10000)
+
+        return()=>clearInterval(interval)
+    }, [])
 
     return (
         <>
@@ -33,21 +38,41 @@ function Dashboard() {
             </Container>
             <Container py={5} maxW={'container.lg'}>
                 <List spacing={3}>
-                    <ListItem mb={5} p={3} bg={useColorModeValue('gray.100', 'gray.700')}>
-                        <Flex>
-                            <Heading
-                                textTransform={'capitalize'}
-                                fontSize={'2xl'}
-                                color={useColorModeValue('gray.800', 'gray.200')}
+                    {
+                        myApplications.map((items: any) => (
+                            <ListItem
+                                mb={5}
+                                p={3}
+                                key={items._id}
+                                bg={'gray.100'}
                             >
-                                course title
-                            </Heading>
-                            <Spacer/>
-                            <Box>
-                                <CustomButton title={"View Certificate"} path={"/certificates"}/>
-                            </Box>
-                        </Flex>
-                    </ListItem>
+                                <Flex>
+                                    <Heading
+                                        textTransform={'capitalize'}
+                                        fontSize={'2xl'}
+                                    >
+                                        {items.course}
+                                    </Heading>
+                                    <Spacer/>
+                                    <Box>
+                                        {items.isApprove ? (
+                                            <CustomButton title={"View Certificate"} path={"/certificates"}/>
+                                        ) : (
+                                            <Heading
+                                                textTransform={'capitalize'}
+                                                fontSize={'medium'}
+                                                color={'red.500'}
+                                            >
+                                                Waiting for Approval
+                                            </Heading>
+                                        )
+                                        }
+                                    </Box>
+                                </Flex>
+                            </ListItem>
+                        ))
+
+                    }
                 </List>
             </Container>
         </>
