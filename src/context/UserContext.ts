@@ -1,13 +1,13 @@
 import {createContext} from "react";
 
-// type TUserContextType = {
-//     user: {
-//         id: string,
-//         name: string,
-//     },
-//     setUser: (user: {id: string, name: string}) => void,
-// }
-export const UserContext = createContext({
-    user: {},
-    setUser: (user: any) => {},
+type TUserContextType = {
+    user: any;
+    setUser: (user: any, name: any) => void;
+}
+export const UserContext = createContext<TUserContextType>({
+    user: {
+        id: '',
+        username: ''
+    },
+    setUser: (user: any) => {}
 });
