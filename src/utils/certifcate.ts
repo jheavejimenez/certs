@@ -1,8 +1,8 @@
 import axios from "axios";
 import {server} from "./apiConfigs";
 
-export async function findCertificate(query: any) {
-    const response = await axios.get(`${server.url}/api/certificates?q=${query}`);
+export async function findCertificate(id: any) {
+    const response = await axios.get(`${server.url}/api/certificates${id}`);
     return response.data;
 }
 

@@ -5,19 +5,11 @@ const server = {
     affinidi: "https://cloud-wallet-api.prod.affinity-project.org/api/v1",
 }
 
-router.route('/').get(async (req, res) => {
-    try {
-        const searchQuery = req.query.q
-        const filter = searchQuery ? {
-            firstName: {$regex: `${searchQuery}`, $options: 'i'},
-        } : {};
-        const data = await Certificate.find(filter);
-        res.json(data)
-
-    } catch (err) {
-        res.status(500).json(`error ${err}`)
-    }
-
+router.route('/:id').get(async (req, res) => {
+  // find all certificates with user id
+    const certificates = await Certificate.find({user: req.params.id});
+    console.log(certificates);
+    res.json(certificates);
 }).post((req, res) => {
     const newCertificate = new Certificate(req.body);
 

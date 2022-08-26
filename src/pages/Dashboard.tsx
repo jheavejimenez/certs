@@ -1,31 +1,44 @@
-import {Button, Flex, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useColorModeValue,} from "@chakra-ui/react";
+import {Box, Container, Flex, Heading, List, ListIcon, ListItem, Spacer,} from '@chakra-ui/react';
+import {CustomButton} from "../components/Button";
+import {UserContext} from "../context/UserContext";
+import {useContext} from "react";
+import axios from "axios";
 
-export default function Dashboard() {
+function Dashboard() {
+    const {user} = useContext(UserContext);
+    const getApplications = async () => {
+        const response = await axios('/api/applications');
+        return response.data;
+    }
     return (
-        <Flex
-            minH={'100vh'}
-            align={'center'}
-            justify={'center'}
-            bg={useColorModeValue('gray.50', 'gray.800')}
-        >
-            <TableContainer display={'block'}>
-                <Table variant='striped' colorScheme='blue'>
-                    <Thead>
-                        <Tr>
-                            <Th>First Name</Th>
-                            <Th>Last Name</Th>
-                            <Th>Course</Th>
-                            <Th>Action</Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        <Tr>
-                            <Td></Td>
-                            <Td>test</Td>
-                        </Tr>
-                    </Tbody>
-                </Table>
-            </TableContainer>
-        </Flex>
-    )
+        <>
+            <Container py={5} maxW={'container.lg'}>
+                <Flex>
+                    <Box>
+                        <Heading as={'h2'}>My Applications</Heading>
+                    </Box>
+                    <Spacer/>
+                    <Box>
+                        <CustomButton title={"Request Certificate"} path={"/request-certificate"}/>
+                    </Box>
+                </Flex>
+            </Container>
+            <Container py={5} maxW={'container.lg'}>
+                <List spacing={3}>
+                    <ListItem mb={5} p={3} bg={"red.300"}>
+                       <Flex>
+                           <h1>Certificate</h1>
+                           <Spacer/>
+                           <Box>
+                               <CustomButton title={"Request Certificate"} path={"/request-certificate"}/>
+                           </Box>
+                       </Flex>
+                    </ListItem>
+                </List>
+            </Container>
+        </>
+
+    );
 }
+
+export default Dashboard;
