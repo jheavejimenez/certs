@@ -20,7 +20,10 @@ function Dashboard() {
             fetchApplications()
         },10000)
 
-        return()=>clearInterval(interval)
+        return () => {
+            clearInterval(interval); // need to clear the interval when the component unmounts to prevent memory leaks
+        };
+
     }, [])
 
     return (

@@ -6,7 +6,7 @@ export async function  getApplications(id: number) {
     return response.data;
 }
 
-export async function  getApprovedCertificate(id: number) {
+export async function  getApprovedCertificate() {
     const response = await axios.get(`${server.url}/api/certificates`);
     return response.data;
 }
