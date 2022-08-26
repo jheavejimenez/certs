@@ -3,6 +3,12 @@ let Certificate = require('../models/certificate.model');
 const axios = require("axios");
 const {affinidi} = require("../utils/apiConfig");
 
+router.get('/', async (req, res) => {
+    // get all certificates
+    const certificates = await Certificate.find();
+    res.json(certificates);
+});
+
 const login = async () => {
     const login = await axios.post(`${affinidi}/users/login`, {
         username: process.env.USERNAME,
