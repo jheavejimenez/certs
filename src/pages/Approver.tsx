@@ -1,7 +1,6 @@
 import {Button, Flex, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useColorModeValue,} from "@chakra-ui/react";
 import axios from "axios";
 import {useEffect, useState} from "react";
-import ICerts from "../models/CertsData"
 import {server} from "../utils/apiConfigs";
 import {schoolSchema} from "../utils/schemaVC";
 import {approveApplication, getSumittedApplications} from "../utils/approver";
@@ -25,19 +24,20 @@ export default function Approver() {
 
     const handleApprove = async (cert: any) => {
         let data = schoolSchema(cert.firstName, cert.lastName, cert.course);
-        await axios.post(`${server.affinidi}/vc/build-unsigned`, data,{
-                headers: {
-                    "Content-Type": "application/json",
-                    "Api-Key": `${process.env.REACT_APP_API_KEY_HASH}`
-                }
+        console.log(data)
+        await axios.post("https://affinity-issuer.prod.affinity-project.org/api/v1/vc/build-unsigned", data, {
+            headers: {
+                "Content-Type": "application/json",
+                "Api-Key": `${process.env.REACT_APP_API_KEY_HASH}`
+            }
 
         }).then(res => {
-            async function buildUsignVc(){
+            async function buildUsignVc() {
                 const isApprove = true;
                 const unsignedVC = res.data.unsignedCredential;
 
                 await approveApplication(
-                    cert.id,
+                    cert._id,
                     cert.firstName,
                     cert.lastName,
                     cert.email,
@@ -46,6 +46,7 @@ export default function Approver() {
                     unsignedVC
                 )
             }
+
             buildUsignVc();
         })
     }
@@ -68,7 +69,7 @@ export default function Approver() {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {certs.map((cert:any) => (
+                        {certs.map((cert: any) => (
                             <Tr key={cert._id}>
                                 <Td>{cert.firstName}</Td>
                                 <Td>{cert.lastName}</Td>

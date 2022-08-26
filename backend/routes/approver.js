@@ -5,7 +5,6 @@ const {affinidi} = require("../utils/apiConfig");
 
 router.get('/', async (req, res) => {
     const certificates = await Certificate.find({isApprove: false});
-    console.log(certificates)
     res.json(certificates);
 });
 

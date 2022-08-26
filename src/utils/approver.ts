@@ -18,5 +18,5 @@ export async function approveApplication(
     const data = {firstName, lastName, email, course, isApprove, unsignedCredentials };
     console.log(data);
 
-    return await axios.put(`${server}/api/certificates/${id}`, data);
+    return await axios.put(`${server.url}/api/approver/${id}`, data);
 }
