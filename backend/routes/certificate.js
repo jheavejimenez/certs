@@ -1,9 +1,7 @@
 const router = require('express').Router();
 let Certificate = require('../models/certificate.model');
 const axios = require("axios");
-const server = {
-    affinidi: "https://cloud-wallet-api.prod.affinity-project.org/api/v1",
-}
+
 
 router.get('/', async (req, res) => {
     const certificates = await Certificate.find({isApprove: true})
