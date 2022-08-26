@@ -1,7 +1,7 @@
 import axios from "axios";
 import {server} from "./apiConfigs";
 
-export async function  getApplications() {
+export async function  getSumittedApplications() {
     const response = await axios.get(`${server.url}/api/approver`);
     return response.data;
 }

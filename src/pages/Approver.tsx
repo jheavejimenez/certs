@@ -4,15 +4,15 @@ import {useEffect, useState} from "react";
 import ICerts from "../models/CertsData"
 import {server} from "../utils/apiConfigs";
 import {schoolSchema} from "../utils/schemaVC";
+import {getSumittedApplications} from "../utils/approver";
 
 export default function Approver() {
-    // @ts-ignore
-    const [certs, setCerts] = useState<ICerts>([]);
+    const [certs, setCerts] = useState([]);
     useEffect(() => {
         async function fetchCerts() {
-            const res = await axios.get(`${server.url}/api/certificates`)
-            setCerts(res.data)
-           console.log(res.data)
+            const res = await getSumittedApplications()
+            setCerts(res)
+           console.log(res)
         }
 
         fetchCerts()
@@ -24,8 +24,6 @@ export default function Approver() {
         };
     }, []);
 
-    // @ts-ignore
-    const filteredCerts = certs.filter(cert => !cert.isApprove);
     const handleApprove = async (cert: any) => {
         let data = schoolSchema(cert.firstName, cert.lastName, cert.course);
         await axios.post(`${server.affinidi}/vc/build-unsigned`, data,{
@@ -69,7 +67,7 @@ export default function Approver() {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {filteredCerts.map((cert: ICerts) => (
+                        {certs.map((cert:any) => (
                             <Tr key={cert.id}>
                                 <Td>{cert.firstName}</Td>
                                 <Td>{cert.lastName}</Td>
