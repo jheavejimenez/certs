@@ -1,9 +1,10 @@
 const router = require('express').Router();
 let Certificate = require('../models/certificate.model');
 const axios = require("axios");
+const {affinidi} = require("../utils/apiConfig");
 
 const login = async () => {
-    const login = await axios.post(`${server.affinidi}/users/login`, {
+    const login = await axios.post(`${affinidi}/users/login`, {
         username: process.env.USERNAME,
         password: process.env.PASSWORD
 
@@ -14,7 +15,7 @@ const login = async () => {
 }
 
 const signVc = async (accessToken, data) => {
-    const sign = await axios.post(`${server.affinidi}/wallet/sign-credential`,{"unsignedCredential": data}, {
+    const sign = await axios.post(`${affinidi}/wallet/sign-credential`,{"unsignedCredential": data}, {
         headers: {
             "Content-Type": "application/json",
             "Api-Key": process.env.REACT_APP_API_KEY_HASH,
