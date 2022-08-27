@@ -15,8 +15,10 @@ import {useNavigate} from "react-router-dom";
 import React from "react";
 import {createCertificate} from "../utils/certifcate";
 import axios from "axios";
+import {UserContext} from "../context/UserContext";
 
 export default function Form() {
+    const {user} = React.useContext(UserContext);
     const navigate = useNavigate();
     const [firstName, setFirstName] = React.useState('');
     const [lastName, setLastName] = React.useState('');
@@ -35,18 +37,17 @@ export default function Form() {
         return signIn.data
     }
 
-
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault()
-        await passwordLessSignIn({email})
+        const sign = await passwordLessSignIn({email})
         await createCertificate(
+            user.id,
             firstName,
             lastName,
             email,
             course,
         )
-
-        navigate('/confirmation-code')
+        navigate('/confirmation-code', {state: {data: sign}})
     };
 
     return (

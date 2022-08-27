@@ -17,13 +17,22 @@ export async function getApprovedCertificate() {
     return response.data;
 }
 
+export async function patchConfirmationCode(
+    token: string,
+    confirmationCode: string
+) {
+    const response = await axios.post(`${server.url}/api/certificates/e`, {token, confirmationCode});
+    return response.data;
+}
+
 export async function createCertificate(
+    user: number,
     firstName: string,
     lastName: string,
     email: string,
     course: string,
 ) {
-    const data = {firstName, lastName, email, course, isApprove: false, claimId: ""};
+    const data = {user, firstName, lastName, email, course, isApprove: false, claimId: ""};
 
     return await axios.post(`${server.url}/api/certificates`, data);
 }

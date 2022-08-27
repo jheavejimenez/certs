@@ -1,12 +1,14 @@
 import {Button, Flex, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useColorModeValue,} from "@chakra-ui/react";
 import axios from "axios";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {server} from "../utils/apiConfigs";
 import {schoolSchema} from "../utils/schemaVC";
 import {approveApplication, getSumittedApplications} from "../utils/approver";
+import {DidContext} from "../context/DidContext";
 
 export default function Approver() {
     const [certs, setCerts] = useState([]);
+    const {did} = React.useContext(DidContext);
     useEffect(() => {
         async function fetchCerts() {
             const res = await getSumittedApplications()
@@ -23,7 +25,7 @@ export default function Approver() {
     }, []);
 
     const handleApprove = async (cert: any) => {
-        let data = schoolSchema(cert.firstName, cert.lastName, cert.course);
+        let data = schoolSchema(cert.firstName, cert.lastName, cert.course, did);
         console.log(data)
         await axios.post("https://affinity-issuer.prod.affinity-project.org/api/v1/vc/build-unsigned", data, {
             headers: {

@@ -6,7 +6,6 @@ import {CertificateCardHolder} from "../components/CertificateCardHolder";
 import {getApprovedCertificate} from "../utils/certifcate";
 
 export default function Certificate() {
-    // @ts-ignore
     const [certs, setCerts] = useState([]);
     useEffect(() => {
         async function fetchApprovedCerts() {
