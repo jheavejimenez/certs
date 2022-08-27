@@ -12,7 +12,7 @@ function Dashboard() {
         async function fetchApplications() {
             const res = await getApplications(user.id)
             setMyApplications(res);
-            console.log(res)
+            console.log(user.id)
         }
 
         fetchApplications()

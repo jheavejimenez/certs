@@ -14,6 +14,7 @@ import {
 import {useNavigate} from "react-router-dom";
 import React from "react";
 import {createCertificate} from "../utils/certifcate";
+import axios from "axios";
 
 export default function Form() {
     const navigate = useNavigate();
@@ -22,15 +23,30 @@ export default function Form() {
     const [email, setEmail] = React.useState('');
     const [course, setCourse] = React.useState('');
 
+    const passwordLessSignIn = async (data: { email: any; }) => {
+        const signIn = await axios.post("https://cloud-wallet-api.prod.affinity-project.org/api/v1/users/sign-in-passwordless",
+            {"username": data.email}, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Api-Key": process.env.REACT_APP_API_KEY_HASH || '',
+                }
+            })
+
+        return signIn.data
+    }
+
+
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault()
+        await passwordLessSignIn({email})
         await createCertificate(
             firstName,
             lastName,
             email,
             course,
         )
-        navigate('/certificate')
+
+        navigate('/confirmation-code')
     };
 
     return (
