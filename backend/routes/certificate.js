@@ -16,9 +16,6 @@ router.route('/').get(async (req, res) => {
 });
 
 router.route('/dashboard/:id').get(async (req, res) => {
-    if(!req.params.id) {
-        return res.status(400).json({msg: 'No id provided'})
-    }
     const certificates = await Certificate.find({user: req.params.id});
     res.json(certificates);
 })

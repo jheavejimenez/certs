@@ -1,12 +1,18 @@
 import axios from "axios";
 import {server} from "./apiConfigs";
 
-export async function  getApplications(id: number) {
-    const response = await axios.get(`${server.url}/api/certificates/${id}`);
+export async function getApplications(id: number) {
+    if (!id) {
+        return [{
+            "_id": "123",
+            "error": "No Applications",
+        }];
+    }
+    const response = await axios.get(`${server.url}/api/certificates/dashboard/${id}`);
     return response.data;
 }
 
-export async function  getApprovedCertificate() {
+export async function getApprovedCertificate() {
     const response = await axios.get(`${server.url}/api/certificates`);
     return response.data;
 }

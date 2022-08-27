@@ -12,13 +12,12 @@ function Dashboard() {
         async function fetchApplications() {
             const res = await getApplications(user.id)
             setMyApplications(res);
-            console.log(user.id)
         }
 
         fetchApplications()
         const interval = setInterval(() => {
             fetchApplications()
-        },10000)
+        }, 10000)
 
         return () => {
             clearInterval(interval); // need to clear the interval when the component unmounts to prevent memory leaks
@@ -43,36 +42,53 @@ function Dashboard() {
                 <List spacing={3}>
                     {
                         myApplications.map((items: any) => (
-                            <ListItem
-                                mb={5}
-                                p={3}
-                                key={items._id}
-                                bg={'gray.100'}
-                            >
-                                <Flex>
+                            !items.error ? (
+
+                                <ListItem
+                                    mb={5}
+                                    p={3}
+                                    key={items._id}
+                                    bg={'gray.100'}
+                                >
+                                    <Flex>
+                                        <Heading
+                                            textTransform={'capitalize'}
+                                            fontSize={'2xl'}
+                                        >
+                                            {items.course}
+                                        </Heading>
+                                        <Spacer/>
+                                        <Box>
+                                            {items.isApprove ? (
+                                                <CustomButton title={"View Certificate"} path={"/certificates"}/>
+                                            ) : (
+                                                <Heading
+                                                    textTransform={'capitalize'}
+                                                    fontSize={'medium'}
+                                                    color={'red.500'}
+                                                >
+                                                    Waiting for Approval
+                                                </Heading>
+                                            )
+                                            }
+                                        </Box>
+                                    </Flex>
+                                </ListItem>
+                            ) : (
+                                <Flex
+                                    mt={5}
+                                    key={items._id}
+                                    justifyContent={'center'}
+                                >
                                     <Heading
-                                        textTransform={'capitalize'}
-                                        fontSize={'2xl'}
+                                        fontSize={'3xl'}
+                                        color={'red.500'}
+                                        alignItems={'center'}
                                     >
-                                        {items.course}
+                                        {items.error}
                                     </Heading>
-                                    <Spacer/>
-                                    <Box>
-                                        {items.isApprove ? (
-                                            <CustomButton title={"View Certificate"} path={"/certificates"}/>
-                                        ) : (
-                                            <Heading
-                                                textTransform={'capitalize'}
-                                                fontSize={'medium'}
-                                                color={'red.500'}
-                                            >
-                                                Waiting for Approval
-                                            </Heading>
-                                        )
-                                        }
-                                    </Box>
                                 </Flex>
-                            </ListItem>
+                            )
                         ))
 
                     }
