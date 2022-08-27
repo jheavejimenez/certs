@@ -1,50 +1,55 @@
 import {Button, Flex, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useColorModeValue,} from "@chakra-ui/react";
 import axios from "axios";
-import {useEffect, useState} from "react";
-import ICerts from "../models/CertsData"
+import React, {useEffect, useState} from "react";
 import {server} from "../utils/apiConfigs";
 import {schoolSchema} from "../utils/schemaVC";
+import {approveApplication, getSumittedApplications} from "../utils/approver";
+import {DidContext} from "../context/DidContext";
 
 export default function Approver() {
-    // @ts-ignore
-    const [certs, setCerts] = useState<ICerts>([]);
+    const [certs, setCerts] = useState([]);
+    const {did} = React.useContext(DidContext);
     useEffect(() => {
+        async function fetchCerts() {
+            const res = await getSumittedApplications()
+            setCerts(res)
+        }
+
+        fetchCerts()
         let interval = setInterval(async () => {
-            await axios.get(`${server.url}/api/certificates`).then(res => {
-                setCerts(res.data);
-            }).catch(err => {
-                console.log(err);
-            });
-        }, 5000);
+            fetchCerts()
+        }, 10000);
         return () => {
             clearInterval(interval); // need to clear the interval when the component unmounts to prevent memory leaks
         };
-    }, [certs]);
+    }, []);
 
-    // @ts-ignore
-    const filteredCerts = certs.filter(cert => !cert.isApprove);
     const handleApprove = async (cert: any) => {
-        let data = schoolSchema(cert.firstName, cert.lastName, cert.course);
-        await axios.post(`${server.affinidi}/vc/build-unsigned`, data,{
-                headers: {
-                    "Content-Type": "application/json",
-                    "Api-Key": `${process.env.REACT_APP_API_KEY_HASH}`
-                }
+        let data = schoolSchema(cert.firstName, cert.lastName, cert.course, did);
+        console.log(data)
+        await axios.post("https://affinity-issuer.prod.affinity-project.org/api/v1/vc/build-unsigned", data, {
+            headers: {
+                "Content-Type": "application/json",
+                "Api-Key": `${process.env.REACT_APP_API_KEY_HASH}`
+            }
 
         }).then(res => {
-            const unsignedVC = res.data.unsignedCredential;
-            console.log(unsignedVC);
-            axios.put(`${server.url}/api/certificates/${cert._id}`, {
-                firstName: cert.firstName,
-                lastName: cert.lastName,
-                course: cert.course,
-                isApprove: true,
-                unsignedVC
-            }).then(res => {
-                console.log(cert._id);
-            }).catch(err => {
-                console.log(err);
-            })
+            async function buildUsignVc() {
+                const isApprove = true;
+                const unsignedVC = res.data.unsignedCredential;
+
+                await approveApplication(
+                    cert._id,
+                    cert.firstName,
+                    cert.lastName,
+                    cert.email,
+                    cert.course,
+                    isApprove,
+                    unsignedVC
+                )
+            }
+
+            buildUsignVc();
         })
     }
 
@@ -66,8 +71,8 @@ export default function Approver() {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {filteredCerts.map((cert: ICerts) => (
-                            <Tr key={cert.id}>
+                        {certs.map((cert: any) => (
+                            <Tr key={cert._id}>
                                 <Td>{cert.firstName}</Td>
                                 <Td>{cert.lastName}</Td>
                                 <Td>{cert.course}</Td>

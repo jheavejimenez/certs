@@ -3,33 +3,33 @@ import React, {useEffect, useState} from "react";
 import {Container, SimpleGrid} from '@chakra-ui/react';
 import {Card} from "../components/Card";
 import {CertificateCardHolder} from "../components/CertificateCardHolder";
-import axios from "axios";
-import ICerts from "../models/CertsData";
-import {server} from "../utils/apiConfigs";
+import {getApprovedCertificate} from "../utils/certifcate";
 
 export default function Certificate() {
-    // @ts-ignore
-    const [certs, setCerts] =  useState<ICerts>([]);
+    const [certs, setCerts] = useState([]);
     useEffect(() => {
+        async function fetchApprovedCerts() {
+            const res = await getApprovedCertificate()
+            setCerts(res);
+        }
+
+        fetchApprovedCerts()
         let interval = setInterval(async () => {
-            await axios.get(`${server.url}/api/certificates`).then(res => {
-                setCerts(res.data);
-            }).catch(err => {
-                console.log(err);
-            });
+            fetchApprovedCerts()
         }, 10000);
+
         return () => {
             clearInterval(interval); // need to clear the interval when the component unmounts to prevent memory leaks
         };
-    }, [certs]);
+
+    }, []);
     // @ts-ignore
-    const filteredCerts = certs.filter(cert => cert.isApprove === true);
     return (
         <Container maxW={'1280px'} marginTop={'10vh'}>
             {
-                filteredCerts.length === 0 ? ( <Card/> ) : (
+                certs.length === 0 ? (<Card/>) : (
                     <SimpleGrid columns={3} spacing={5}>
-                        {filteredCerts.map((cert: any) => (
+                        {certs.map((cert: any) => (
                             <CertificateCardHolder
                                 key={cert._id}
                                 firstName={cert.firstName}

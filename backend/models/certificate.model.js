@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const certificateSchema = new Schema({
-    User: {
+    user: {
         type: mongoose.Types.ObjectId,
         ref: 'User',
         required: true,

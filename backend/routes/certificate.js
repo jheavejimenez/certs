@@ -1,66 +1,44 @@
 const router = require('express').Router();
 let Certificate = require('../models/certificate.model');
 const axios = require("axios");
-const server = {
-    affinidi: "https://cloud-wallet-api.prod.affinity-project.org/api/v1",
+const {affinidi} = require("../utils/apiConfig");
+const {mongoose} = require('mongoose');
+
+
+const confirmSignUp = async (data) => {
+    const otp = await axios.post("https://cloud-wallet-api.prod.affinity-project.org/api/v1/users/sign-in-passwordless/confirm",
+        {
+            "token": data.token,
+            "confirmationCode": data.confirmationCode
+        }, {
+            headers: {
+                "Content-Type": "application/json",
+                "Api-Key": process.env.REACT_APP_API_KEY_HASH
+            }
+        })
+    return otp.data.did;
+
 }
 
 router.route('/').get(async (req, res) => {
-    try {
-        const searchQuery = req.query.q
-        const filter = searchQuery ? {
-            firstName: {$regex: `${searchQuery}`, $options: 'i'},
-        } : {};
-        const data = await Certificate.find(filter);
-        res.json(data)
-
-    } catch (err) {
-        res.status(500).json(`error ${err}`)
-    }
-
-}).post((req, res) => {
+    const certificates = await Certificate.find({isApprove: true})
+    res.json(certificates)
+}).post(async (req, res) => {
     const newCertificate = new Certificate(req.body);
-
     newCertificate.save()
         .then(() => res.json(newCertificate))
         .catch(err => res.status(500).json(`error ${err}`));
 });
 
-const login = async () => {
-    const login = await axios.post(`${server.affinidi}/users/login`, {
-        username: process.env.USERNAME,
-        password: process.env.PASSWORD
+router.route('/dashboard/:id').get(async (req, res) => {
+    const certificates = await Certificate.find({user: req.params.id});
+    res.json(certificates);
+})
+router.route('/e').post(async (req, res) => {
+    const update = await confirmSignUp(req.body)
+    console.log(update)
+    return res.json(update)
 
-    }, {
-        headers: {"Content-Type": "application/json", "Api-Key": process.env.REACT_APP_API_KEY_HASH}
-    })
-    return login.data.accessToken
-}
-
-const signVc = async (accessToken, data) => {
-    const sign = await axios.post(`${server.affinidi}/wallet/sign-credential`,{"unsignedCredential": data}, {
-        headers: {
-            "Content-Type": "application/json",
-            "Api-Key": process.env.REACT_APP_API_KEY_HASH,
-            "Authorization": `Bearer ${accessToken}`
-        }
-    })
-    return sign.data.signedCredential.id
-}
-
-router.route('/:id').put(async (req, res) => {
-    try {
-        const {firstName, lastName, email, course, isApprove, unsignedCredentials} = req.body;
-        const accessToken = await login()
-        const claimId = await signVc(accessToken, unsignedCredentials)
-
-        const update = {firstName, lastName, email, course, isApprove, claimId};
-        const updatedCertificate = await Certificate.findByIdAndUpdate(req.params.id, update, {new: true});
-        res.json(updatedCertificate)
-    } catch (err) {
-        console.log(err);
-        res.status(500).json(`error ${err}`)
-    }
 })
 
 module.exports = router;
